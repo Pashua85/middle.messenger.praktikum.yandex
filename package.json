@@ -5,7 +5,7 @@
   "scripts": {
     "start": "node ./server.js",
     "dev": "parcel ./index.html --no-cache",
-    "build": "parcel build ./index.html --no-cache"
+    "build": "parcel build ./index.html --no-optimize"
   },
   "repository": {
     "type": "git",
@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/Pashua85/middle.messenger.praktikum.yandex#readme",
   "dependencies": {
-    "express": "^4.18.2",
+    "@anikin/parcel-transformer-handlebars": "^1.0.9",
     "@anikin/parcel-transformer-handlebars-precompile": "^1.0.1",
+    "express": "^4.18.2",
     "parcel": "^2.7.0"
   }
 }

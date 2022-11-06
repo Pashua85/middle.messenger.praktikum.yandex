@@ -1,10 +1,3 @@
-import mainPageTemplate from "./pages/mainPage.hbs";
-import "./registerPartials";
+import { renderMainPage } from "./pages/renderMainPage";
 
-const appDiv = document.querySelector("#app");
-
-if (appDiv) {
-  const html = mainPageTemplate({ username: "Peter Green" });
-
-  appDiv.innerHTML = html;
-}
+renderMainPage();
