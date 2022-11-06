@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "### Откройте pull request в ветку main из ветки, где вы разрабатывали проект, и добавьте ссылку на этот pr в README.md в ветке main.  ### ВАЖНО: pull request должен называться “Sprint i” (i — номер спринта).",
   "scripts": {
-    "start": "node ./server.js",
+    "start": "npm run build && node ./server.js",
     "dev": "parcel ./index.html --no-cache",
-    "build": "parcel build ./index.html --no-optimize"
+    "build": "rm -rf dist && parcel build ./index.html --no-optimize"
   },
   "repository": {
     "type": "git",

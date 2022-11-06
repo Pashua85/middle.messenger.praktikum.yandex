@@ -1,3 +1,6 @@
-import { renderMainPage } from "./pages/renderMainPage";
+import { renderMainPage } from "./renderMainPage";
+import { registerPartials } from "./registerPartials";
+
+registerPartials();
 
 renderMainPage();
