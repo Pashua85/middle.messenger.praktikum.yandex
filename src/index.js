@@ -1,8 +1,7 @@
-import { renderMainPage } from "./renderMainPage";
+import { renderPage } from "./renderPage";
 import { registerPartials } from "./registerPartials";
+import "./styles";
 
 registerPartials();
 
-renderMainPage();
-
-console.log("from index js");
+renderPage("signUp");

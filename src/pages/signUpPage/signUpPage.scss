@@ -1,0 +1,16 @@
+.sign-up-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.sign-up-form {
+  outline: 1px solid green;
+  padding: 50px 30px 55px;
+  width: 340px;
+
+  &__title {
+    margin-bottom: 40px;
+  }
+}

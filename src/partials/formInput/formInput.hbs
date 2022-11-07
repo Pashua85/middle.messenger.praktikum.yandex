@@ -1,0 +1,13 @@
+<div class="form-input__container">
+  <input
+    type={{type}}
+    name={{name}}
+    {{#if valid}}class="form-input"{{/if}}
+    {{#unless valid}}class="form-input form-input_invalid"{{/unless}}
+    placeholder="placeholder"
+  >
+  <label class="form-input__label">{{title}}</label>
+  {{#if errorMessage}}
+  <div class="form-input__errorMessage">{{errorMessage}}</div>
+  {{/if}}
+</div>

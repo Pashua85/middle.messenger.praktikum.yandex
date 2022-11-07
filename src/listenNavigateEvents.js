@@ -1,15 +1,16 @@
-import { renderOtherPage } from "./renderOtherPage";
-import { renderMainPage } from "./renderMainPage";
+import { renderPage } from "./renderPage";
 
 export const listenNavigateEvents = () => {
   const someButton = document.querySelector("#some-button");
   const otherButton = document.querySelector("#other-button");
 
+  console.log({ someButton, otherButton });
+
   someButton?.addEventListener("click", () => {
-    renderOtherPage();
+    renderPage("other", { username: "Max Fry" });
   });
 
   otherButton?.addEventListener("click", () => {
-    renderMainPage();
+    renderPage("main", { username: "Max Payne" });
   });
 };
