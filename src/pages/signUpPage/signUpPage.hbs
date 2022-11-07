@@ -1,6 +1,6 @@
 <div class="sign-up-page">
   <form class="sign-up-form">
-    <div class="sign-up-form__title">Sign up</div>
+    <div class="sign-up-form__title">Регистрация</div>
     {{> formInput title="Почта" name="email" type="text" valid=true}}
     {{> formInput title="Логин" name="login" type="text" valid=true}}
     {{> formInput title="Имя" name="first_name" type="text" valid=true}}
@@ -14,6 +14,10 @@
       errorMessage="Пароли не совпадают"
       valid=false
     }}
+    <div class="sign-up-form__buttons">
+      {{> customButton type="button" title="Зарегистрироваться" id="sing-up-button"}}
+      <a href="#" class="sign-up-form__link">Войти</a>
+    </div>
   </form>
 
  
