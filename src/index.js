@@ -4,4 +4,4 @@ import "./styles";
 
 registerPartials();
 
-renderPage("signUp");
+renderPage("signIn");

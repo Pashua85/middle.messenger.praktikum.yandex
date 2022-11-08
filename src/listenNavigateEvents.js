@@ -1,16 +1,16 @@
 import { renderPage } from "./renderPage";
 
 export const listenNavigateEvents = () => {
-  const someButton = document.querySelector("#some-button");
-  const otherButton = document.querySelector("#other-button");
+  const toSignInLink = document.querySelector(".sign-up-form__link");
+  const toSignUpLink = document.querySelector(".sign-in-form__link");
 
-  console.log({ someButton, otherButton });
-
-  someButton?.addEventListener("click", () => {
-    renderPage("other", { username: "Max Fry" });
+  toSignInLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    renderPage("signIn");
   });
 
-  otherButton?.addEventListener("click", () => {
-    renderPage("main", { username: "Max Payne" });
+  toSignUpLink?.addEventListener("click", (e) => {
+    e.preventDefault();
+    renderPage("signUp");
   });
 };
