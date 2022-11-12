@@ -1,0 +1,95 @@
+@import "../../variables.scss";
+
+.profile {
+  display: flex;
+  height: 100vh;
+
+  &__back {
+    display: block;
+    width: 65px;
+    background-color: transparent;
+    background-image: url('../../assets/left.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    border-left: none;
+    border-top: none;
+    border-bottom: none;
+    border-right: 1px solid $border-color;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $grey-2;
+      border-color: $grey;
+    }
+  }
+
+  &__main {
+    flex-grow: 1;
+    padding-top: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__photo-container {
+    width: fit-content;
+    margin-bottom: 20px;
+
+    &_editing {
+      margin-bottom: 86px;
+    }
+  }
+
+  &__photo-placeholder {
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-image: url("../../assets/no-image.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: $grey-3;
+  }
+
+  &__name {
+    font-size: 16px;
+    line-height: 16px;
+    font-weight: 600;
+    margin-bottom: 50px;
+  }
+
+  &__form {
+    width: 510px;
+    margin-bottom: 50px;
+  }
+
+  &__link-row {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  
+    &:not(:last-child) {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $base-color;
+
+    &_exit {
+      color: $red;
+    }
+  }
+}
+
+.form__buttons {
+  margin-top: 50px;
+}
+
+.custom-button {
+  &__container {
+    display: flex;
+    justify-content: center;
+  }
+}

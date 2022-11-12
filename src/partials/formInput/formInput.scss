@@ -24,7 +24,7 @@
     position: absolute;
     pointer-events: none;
     top: 0;
-    left: 0;
+    left: 2px;
     transition: 0.2s ease all;
     font-size: 9px;
     line-height: 9px;
@@ -32,8 +32,8 @@
   }
 
   &:placeholder-shown ~label {
-    top: 15px;
-    left: 0;
+    top: 19px;
+    left: 2px;
     font-size: 13px;
     line-height: 13px;
     transition: all 0.2s ease-out;

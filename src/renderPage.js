@@ -1,14 +1,12 @@
-import mainPageTemplate from "./pages/mainPage/mainPage.hbs";
-import otherPageTemplate from "./pages/otherPage/otherPage.hbs";
 import signUpTemplate from "./pages/signUpPage/signUpPage.hbs";
 import signInTemplate from "./pages/signInPage/signInPage.hbs";
+import profileTemplate from "./pages/profilePage/profilePage.hbs";
 import { listenNavigateEvents } from "./listenNavigateEvents";
 
 const templates = {
-  main: mainPageTemplate,
-  other: otherPageTemplate,
   signUp: signUpTemplate,
   signIn: signInTemplate,
+  profile: profileTemplate,
 };
 
 export const renderPage = (page = "main", data = {}) => {
