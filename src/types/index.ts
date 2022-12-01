@@ -1,2 +1,4 @@
-export * from './event-listeners';
-export * from './block-children';
+export * from './eventListeners';
+export * from './blockChildren';
+export * from './appPage';
+export * from './blockInterface';

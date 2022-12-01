@@ -1,10 +1,11 @@
-<input
+{{!-- <input
   type={{type}}
   name={{name}}
   {{#if valid}}class="form-input"{{/if}}
   {{#unless valid}}class="form-input form-input_invalid"{{/unless}}
   placeholder={{placeholder}}
->
+> --}}
+{{{input}}}
 <label class="form-input__label">{{label}}</label>
 {{#if errorMessage}}
 <div class="form-input__errorMessage">{{errorMessage}}</div>

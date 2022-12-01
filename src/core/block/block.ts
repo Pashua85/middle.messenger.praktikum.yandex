@@ -1,7 +1,6 @@
 import { EventBus } from '..';
 import { nanoid } from 'nanoid';
-import { BlockChildren } from '../../types';
-import { BlockInterface, SimpleObject } from '../../types/block-interface';
+import { BlockChildren, BlockInterface, SimpleObject } from '../../types';
 
 type ValueOf<T> = T[keyof T];
 
@@ -63,7 +62,6 @@ export abstract class Block<
     template: (context: Record<string, unknown>) => string,
     context: Record<string, unknown>,
   ): DocumentFragment {
-    console.log({ context });
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([key, component]) => {
@@ -93,7 +91,7 @@ export abstract class Block<
     return temp.content;
   }
 
-  protected getContent() {
+  public getContent(): HTMLElement | null {
     return this.element;
   }
 
@@ -116,7 +114,8 @@ export abstract class Block<
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected componentDidMount() {}
 
-  protected componentDidUpdate(oldProps: unknown, newProps: unknown) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  protected componentDidUpdate(_oldProps: unknown, _newProps: unknown) {
     return true;
   }
 
@@ -163,7 +162,6 @@ export abstract class Block<
   }
 
   private _createResources() {
-    console.log('create resourses');
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
     const classNames = this._meta.props['classNames' as keyof TProps];
@@ -194,6 +192,20 @@ export abstract class Block<
   }
 
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
+    const newClassNames = (newProps as TProps).classNames;
+    const oldClassNames = (oldProps as TProps).classNames;
+    console.log({ newClassNames, oldClassNames });
+
+    if (Array.isArray(newClassNames) && newClassNames !== oldClassNames) {
+      if (Array.isArray(oldClassNames)) {
+        console.log('remove');
+        this._element?.classList.remove(...oldClassNames);
+      }
+      console.log('add');
+      this._element?.classList.add(...newClassNames);
+      console.log({ el: this._element });
+    }
+
     if (this.componentDidUpdate(oldProps, newProps)) {
       this.eventBus().emit(Block.EVENTS.FLOW_RENDER);
     }

@@ -25,7 +25,10 @@ export class EventBus {
     }
 
     this.listeners[event].forEach(function (listener) {
-      listener(args);
+      // TODO решить ошибку с рест оператором
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      listener(...args);
     });
   }
 }

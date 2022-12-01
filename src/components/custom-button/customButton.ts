@@ -1,6 +1,6 @@
 import { Block } from '../../core';
-import template from './custom-button.hbs';
-import './custom-button.scss';
+import template from './customButton.hbs';
+import './customButton.scss';
 
 interface CustomButtonProps {
   label: string;

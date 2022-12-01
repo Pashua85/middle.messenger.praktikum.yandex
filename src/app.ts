@@ -1,15 +1,23 @@
 import { Block } from './core';
+import { EPage } from './enums';
+import template from './app.hbs';
+import { AppPage } from './types/appPage';
+import { SignInPage } from './pages/signInPage';
 
-export class App extends Block<never> {
-  constructor(props: never) {
-    super('div', props);
+interface AppProps {
+  page: EPage;
+}
+
+export class App extends Block<AppProps, AppPage> {
+  constructor(props: AppProps) {
+    const children = {
+      [EPage.SIGN_IN]: new SignInPage({ classNames: ['sign-in-page'] }),
+    };
+
+    super('div', props, children);
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, {});
-  }
-
-  private handleBlur(event: any): void {
-    console.log({ event });
+    return this.compile(template, { page: this.props.page });
   }
 }

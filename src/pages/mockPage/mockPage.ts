@@ -1,6 +1,6 @@
 import template from './mockPage.hbs';
 import { Block } from '../../core';
-import { CustomButton } from '../../components/custom-button/custom-button';
+import { CustomButton } from '../../components/custom-button/customButton';
 import { Input } from '../../components/input/input';
 
 interface MockPageProps {
@@ -11,12 +11,12 @@ interface MockPageProps {
 export class MockPage extends Block<any, CustomButton | Input> {
   constructor(props: never) {
     const children = {
-      input: new Input({
-        classNames: ['someInput'],
-        events: {
-          blur: (event) => this.handleBlur(event),
-        },
-      }),
+      // input: new Input({
+      //   classNames: ['someInput'],
+      //   events: {
+      //     blur: (event) => this.handleBlur(event),
+      //   },
+      // }),
       button1: new CustomButton({
         label: 'button1',
         events: {
