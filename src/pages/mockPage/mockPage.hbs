@@ -1,5 +1,9 @@
 <div>
   <h1>Home page</h1>
+  {{#if_eq flag 'zero' }}
+    <p>only if flag equal zero</p>
+  {{/if_eq}}
+  {{{input}}}
   <p>before button1</p>
   {{{ button1 }}}
   <p>after button1</p>

@@ -31,8 +31,6 @@ export abstract class Block<
   constructor(tagName = 'div', props: TProps, children: BlockChildren<TChildren> = {}) {
     const eventBus = new EventBus();
 
-    // const { props, children } = this._getChildrenAndProps(propsWithChildren);
-
     this._meta = {
       tagName,
       props,
@@ -65,11 +63,10 @@ export abstract class Block<
     template: (context: Record<string, unknown>) => string,
     context: Record<string, unknown>,
   ): DocumentFragment {
+    console.log({ context });
     const contextAndStubs = { ...context };
-    console.log({ comp: this.children });
 
     Object.entries(this.children).forEach(([key, component]) => {
-      console.log({ key, component });
       contextAndStubs[key] = `<div data-id="${component.id}"></div>`;
     });
 
@@ -105,12 +102,12 @@ export abstract class Block<
   }
 
   protected addChildren(children: BlockChildren<TChildren>) {
-    console.log({ children });
     Object.entries(children).forEach(([key, value]) => {
       if (value instanceof Block) {
         children[key] = value;
       }
     });
+    this.eventBus().emit(Block.EVENTS.FLOW_CDU);
   }
 
   // eslint-disable-next-line @typescript-eslint/no-empty-function
@@ -186,7 +183,6 @@ export abstract class Block<
 
   private _componentDidMount() {
     this.componentDidMount();
-    console.log({ children: this.children });
 
     Object.values(this.children).forEach((child) => {
       child.dispatchComponentDidMount();
@@ -207,11 +203,13 @@ export abstract class Block<
     const block = this.render();
 
     this._removeEvents();
-    if (this._element) {
+    if (this._element && this._meta.tagName !== 'input') {
       this._element.innerHTML = '';
     }
 
-    this._element?.append(block);
+    if (block) {
+      this._element?.append(block);
+    }
 
     this._addEvents();
   }
