@@ -12,6 +12,10 @@
   "rules": {
     "require-jsdoc": "off",
     "@typescript-eslint/member-ordering": "error",
-    "@typescript-eslint/explicit-member-accessibility": ["error", { "overrides": { "constructors": "no-public"}}]
+    "@typescript-eslint/explicit-member-accessibility": ["error", { "overrides": { "constructors": "no-public"}}],
+    "object-curly-spacing": "off",
+    "max-len": ["error", { "code": 120}],
+    "indent": ["error", 2],
+    "space-before-function-paren": "off"
   }
 }

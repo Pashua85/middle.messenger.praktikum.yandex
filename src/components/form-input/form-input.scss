@@ -1,0 +1,54 @@
+@import "../../variables.scss";
+
+.form-input__container {
+  position: relative;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.form-input {
+  outline: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 1px solid $base-color;
+  width: 100%;
+  font-size: 13px;
+  line-height: 13px;
+
+  &::placeholder {
+    color: transparent;
+  }
+
+  &__label {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 2px;
+    transition: 0.2s ease all;
+    font-size: 9px;
+    line-height: 9px;
+    color: $grey;
+  }
+
+  &:placeholder-shown~label {
+    top: 19px;
+    left: 2px;
+    font-size: 13px;
+    line-height: 13px;
+    transition: all 0.2s ease-out;
+  }
+
+  &__errorMessage {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 8px;
+    line-height: 8px;
+    color: $error-color;
+  }
+
+  &_invalid {
+    color: $error-color;
+  }
+}
