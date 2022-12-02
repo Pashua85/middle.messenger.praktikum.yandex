@@ -3,7 +3,7 @@ import template from './input.hbs';
 
 interface InputProps {
   classNames?: string[];
-  events?: Record<string, (event: unknown) => void>;
+  events?: Record<string, (event: Event | FocusEvent) => void>;
   type: string;
   name: string;
   placeholder?: string;
@@ -17,7 +17,6 @@ export class Input extends Block<InputProps, never> {
   }
 
   public render() {
-    console.log('render input', { props: { ...this.props } });
     return this.compile(template, { ...this.props });
   }
 

@@ -194,16 +194,12 @@ export abstract class Block<
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
     const newClassNames = (newProps as TProps).classNames;
     const oldClassNames = (oldProps as TProps).classNames;
-    console.log({ newClassNames, oldClassNames });
 
     if (Array.isArray(newClassNames) && newClassNames !== oldClassNames) {
       if (Array.isArray(oldClassNames)) {
-        console.log('remove');
         this._element?.classList.remove(...oldClassNames);
       }
-      console.log('add');
       this._element?.classList.add(...newClassNames);
-      console.log({ el: this._element });
     }
 
     if (this.componentDidUpdate(oldProps, newProps)) {

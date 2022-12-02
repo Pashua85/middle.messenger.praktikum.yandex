@@ -1,6 +1,6 @@
 import template from './mockPage.hbs';
 import { Block } from '../../core';
-import { CustomButton } from '../../components/custom-button/customButton';
+import { CustomButton } from '../../components/customButton/customButton';
 import { Input } from '../../components/input/input';
 
 interface MockPageProps {
@@ -35,9 +35,5 @@ export class MockPage extends Block<any, CustomButton | Input> {
 
   protected render(): DocumentFragment {
     return this.compile(template, { flag: this.props.flag });
-  }
-
-  private handleBlur(event: any): void {
-    console.log({ event });
   }
 }

@@ -1,7 +1,7 @@
 import './styles';
 
 import { MockPage } from './pages/mockPage/mockPage';
-import { CustomButton } from './components/custom-button/customButton';
+import { CustomButton } from './components/customButton/customButton';
 import { FormInput } from './components/formInput/formInput';
 import './helpers.js';
 import { Block } from './core';

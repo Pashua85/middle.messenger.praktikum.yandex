@@ -6,6 +6,7 @@ interface CustomButtonProps {
   label: string;
   events: Record<string, () => void>;
   classNames?: string[];
+  type?: 'button' | 'submit';
 }
 
 export class CustomButton extends Block<CustomButtonProps, never> {
@@ -18,5 +19,11 @@ export class CustomButton extends Block<CustomButtonProps, never> {
 
   public render() {
     return this.compile(template, { ...this.props });
+  }
+
+  protected init() {
+    if (this.element) {
+      this.element.setAttribute('type', this.props.type || 'button');
+    }
   }
 }
