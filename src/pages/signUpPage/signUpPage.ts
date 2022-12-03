@@ -2,6 +2,7 @@ import { SingUpForm } from '../../components/signUpForm';
 import { Block } from '../../core';
 import { EPage } from '../../enums';
 import template from './signUpPage.hbs';
+import './signUpPage.scss';
 
 interface SingUpPageProps {
   classNames: string[];

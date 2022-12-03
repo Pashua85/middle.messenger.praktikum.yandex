@@ -1,8 +1,5 @@
 import './styles';
 
-import { MockPage } from './pages/mockPage/mockPage';
-import { CustomButton } from './components/customButton/customButton';
-import { FormInput } from './components/formInput/formInput';
 import './helpers.js';
 import { Block } from './core';
 import { App } from './app';
@@ -18,9 +15,6 @@ function render(query: string, block: Block) {
   return root;
 }
 
-const mock = new MockPage({} as never);
+const app = new App({ page: EPage.CHATS });
 
-const app = new App({ page: EPage.SIGN_UP });
-
-// app — это class дива в корне DOM
 render('.app', app);

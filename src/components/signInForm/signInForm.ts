@@ -57,6 +57,7 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
 
   protected handleSubmit(formValues: Record<string, string | number>): void {
     console.log({ formValues });
+    this.props.navigate(EPage.CHATS);
   }
 
   private handleLinkClick(e: Event) {

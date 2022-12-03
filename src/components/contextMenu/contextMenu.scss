@@ -1,0 +1,58 @@
+@import "../../variables.scss";
+
+.context-menu {
+
+  &__button.custom-button {
+    background-color: transparent;
+    border-radius: 50%;
+    position: relative;
+
+    background-color: $grey-2;
+
+    &:hover {
+      background-color: $grey-2;
+    }
+  }
+
+  &__button_header.custom-button {
+    width: 25px;
+    height: 25px;
+    display: block;
+    
+    &::after,
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background-color: $black;
+      left: calc(50% - 1.5px);
+    }
+
+    &::before {
+      top: calc(50% - 7px);
+    }
+
+    &::after {
+      top: calc(50% - 1.5px);
+      box-shadow: 0 5px 0 0 $black;
+    }
+
+    &:hover::after,
+    &:hover::before {
+      background-color: $base-color;
+    }
+
+    &:hover::after {
+      box-shadow: 0 5px 0 0 $base-color;
+    }
+
+  }
+
+  &__button_message.custom-button {
+    width: 32px;
+    height: 32px;
+  }
+}

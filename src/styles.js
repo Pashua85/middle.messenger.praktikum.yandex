@@ -1,7 +1,7 @@
 import 'normalize.css';
 import './index.scss';
 
-import './pages/signUpPage/signUpPage.scss';
+// import './pages/signUpPage/signUpPage.scss';
 // import './pages/signInPage/signInPage.scss';
 import './pages/profilePage/profilePage.scss';
 import './pages/chatsPage/chatsPage.scss';

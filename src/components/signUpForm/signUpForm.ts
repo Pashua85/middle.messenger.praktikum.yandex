@@ -77,7 +77,7 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
       }),
       link: new TextLink({
         classNames: ['sign-in-form__link'],
-        text: 'Нет аккаунта?',
+        text: 'Войти',
         events: {
           click: (e: Event) => {
             this.handleLinkClick(e);
