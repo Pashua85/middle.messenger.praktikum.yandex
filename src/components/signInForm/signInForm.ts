@@ -1,3 +1,4 @@
+import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -15,18 +16,13 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
       label: 'Логин',
       name: 'login',
       type: 'text',
-      rules: {
-        ['Обязательное поле']: new RegExp(/\S+/),
-        ['Логин должен содержать от 3 до 20 символов']: new RegExp(/^(.{3,20})$/),
-        ['Недопустимы пробелы']: new RegExp(/^\S*$/),
-        ['Допустимы только латиница, цифры, символы "_" и "-"']: new RegExp(/^[0-9a-zA-Z\-\_]*$/),
-        ['Логин не может состоять только из цифр']: new RegExp(/\D+/),
-      },
+      rules: LOGIN_RULES,
     });
     const passwordInput = new FormInput({
       label: 'Пароль',
       name: 'password',
       type: 'password',
+      rules: PASSWORD_RULES,
     });
 
     const children = {

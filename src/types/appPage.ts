@@ -1,3 +1,4 @@
-import { SignInPage } from '../pages/signInPage/signInPage';
+import { SignInPage } from '../pages/signInPage';
+import { SignUpPage } from '../pages/signUpPage';
 
-export type AppPage = SignInPage;
+export type AppPage = SignInPage | SignUpPage;

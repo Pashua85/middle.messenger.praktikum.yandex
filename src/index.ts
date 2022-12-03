@@ -20,7 +20,7 @@ function render(query: string, block: Block) {
 
 const mock = new MockPage({} as never);
 
-const app = new App({ page: EPage.SIGN_IN });
+const app = new App({ page: EPage.SIGN_UP });
 
 // app — это class дива в корне DOM
 render('.app', app);

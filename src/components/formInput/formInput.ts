@@ -1,4 +1,5 @@
 import { Block } from '../../core';
+import { FormInputRules } from '../../types';
 import { Input } from '../input';
 import template from './formInput.hbs';
 import './formInput.scss';
@@ -11,7 +12,7 @@ interface FormInputProps {
   placeholder?: string;
   errorMessage?: string;
   value?: string;
-  rules?: Record<string, RegExp>;
+  rules?: FormInputRules;
 }
 
 export class FormInput extends Block<FormInputProps, Input> {
@@ -56,8 +57,8 @@ export class FormInput extends Block<FormInputProps, Input> {
   public validate(): boolean {
     if (this.props.rules) {
       if (typeof this._value === 'string') {
-        for (const [errorMessage, reg] of Object.entries(this.props.rules)) {
-          const test = reg.test(this._value);
+        for (const [errorMessage, validateFunction] of Object.entries(this.props.rules)) {
+          const test = validateFunction(this._value);
           if (!test) {
             this.setProps({ errorMessage });
             return false;

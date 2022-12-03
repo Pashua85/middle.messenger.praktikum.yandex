@@ -1,7 +1,4 @@
-import { CustomButton } from '../../components/customButton';
-import { FormInput } from '../../components/formInput';
 import { SingInForm } from '../../components/signInForm';
-import { TextLink } from '../../components/textLink';
 import { Block } from '../../core';
 import template from './signInPage.hbs';
 import './signInPage.scss';

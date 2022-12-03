@@ -38,12 +38,13 @@ export abstract class Form<
   }
 
   private validateForm(): boolean {
+    let isValid = true;
     for (const field of this.fields) {
       if (!field.validate()) {
-        return false;
+        isValid = false;
       }
     }
-    return true;
+    return isValid;
   }
 
   private getFormValues(): Record<string, string | number> {
