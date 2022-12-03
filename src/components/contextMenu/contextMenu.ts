@@ -10,6 +10,7 @@ import './contextMenu.scss';
 interface ContextMenuProps {
   type: EContextMenu;
   classNames?: string[];
+  open: boolean;
 }
 
 export class ContextMenu extends Block<ContextMenuProps> {
@@ -22,7 +23,7 @@ export class ContextMenu extends Block<ContextMenuProps> {
             ? ['context-menu__button', 'context-menu__button_header']
             : ['context-menu__button', 'context-menu__button_message'],
         events: {
-          click: () => this.handleClick(),
+          click: () => this.toggleMenu(),
         },
       }),
       ...options,
@@ -32,7 +33,10 @@ export class ContextMenu extends Block<ContextMenuProps> {
       'div',
       {
         ...props,
-        classNames: props.type === EContextMenu.HEADER ? ['header-menu'] : ['message-menu'],
+        classNames:
+          props.type === EContextMenu.HEADER
+            ? ['context-menu', 'context-menu_header']
+            : ['context-menu', 'context-menu_message'],
       },
       children,
     );
@@ -43,7 +47,19 @@ export class ContextMenu extends Block<ContextMenuProps> {
     return this.compile(template, { ...this.props });
   }
 
-  private handleClick() {
-    console.log('click');
+  protected componentDidUpdate(oldProps: ContextMenuProps, newProps: ContextMenuProps): boolean {
+    if (oldProps.open !== newProps.open) {
+      if (newProps.open) {
+        this.setProps({ classNames: ['context-menu', 'context-menu_open'] });
+      } else {
+        this.setProps({ classNames: ['context-menu'] });
+      }
+    }
+
+    return true;
+  }
+
+  private toggleMenu(): void {
+    this.setProps({ open: !this.props.open });
   }
 }

@@ -119,21 +119,6 @@ export abstract class Block<
     return true;
   }
 
-  // private _getChildrenAndProps(childrenAndProps: TProps & BlockChildren<TChildren>) {
-  //   const props: TProps = {} as TProps;
-  //   const children: BlockChildren<TChildren> = {} as BlockChildren<TChildren>;
-
-  //   Object.entries(childrenAndProps).forEach(([key, value]) => {
-  //     if (value instanceof Block) {
-  //       children[key] = value;
-  //     } else {
-  //       props[key as keyof TProps] = value;
-  //     }
-  //   });
-
-  //   return { props, children };
-  // }
-
   private _registerEvents(eventBus: EventBus) {
     eventBus.on(Block.EVENTS.INIT, this._init.bind(this));
     eventBus.on(Block.EVENTS.FLOW_CDM, this._componentDidMount.bind(this));

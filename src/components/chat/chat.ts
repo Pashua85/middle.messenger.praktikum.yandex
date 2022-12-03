@@ -15,10 +15,16 @@ export class Chat extends Block<ChatProps, ContextMenu> {
   constructor(props: ChatProps) {
     const children = {
       contextMenu: new ContextMenu(
-        { type: EContextMenu.HEADER },
+        { type: EContextMenu.HEADER, open: false },
         {
           option1: new MenuOption({
-            label: 'some option',
+            label: 'Добавить пользователя',
+            events: {
+              click: () => console.log('option click!'),
+            },
+          }),
+          option2: new MenuOption({
+            label: 'Удалить пользователя',
             events: {
               click: () => console.log('option click!'),
             },

@@ -1,3 +1,18 @@
+@import "../../variables.scss";
+
 .menu-option {
-  
+  width: 100%;
+  padding-left: 37px;
+  position: relative;
+  white-space: nowrap;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+
+  &:hover {
+    color: $grey;
+  }
 }

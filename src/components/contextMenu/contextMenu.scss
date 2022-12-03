@@ -1,16 +1,70 @@
 @import "../../variables.scss";
 
 .context-menu {
+  position: relative;
+
+  &__options {
+    display: none;
+    position: absolute;
+    background-color: $white;
+    border-radius: 12px;
+    box-shadow: 0 0 6px $grey-1;
+    padding: 15px;
+    flex-direction: column;
+    gap: 20px;
+
+    &_header {
+      right: 0;
+      top: calc(100% + 25px);
+      min-width: 210px;
+
+      & .menu-option::before {
+        background-image: url("../../assets/cross.svg");
+        border: 1px solid $base-color;
+        border-radius: 50%;
+      }
+
+      & .menu-option:last-child::before {
+        transform: rotate(45deg);
+      }
+    }
+
+    & .menu-option::before {
+      content: '';
+      position: absolute;
+      width: 22px;
+      height: 22px;
+      left: 0;
+      top: 0;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+  }
+
+  &_open .context-menu__options {
+    display: flex;
+  }
 
   &__button.custom-button {
     background-color: transparent;
     border-radius: 50%;
     position: relative;
 
-    background-color: $grey-2;
-
     &:hover {
       background-color: $grey-2;
+    }
+  }
+
+  &_open .context-menu__button_header.custom-button {
+    background-color: $grey-2;
+
+    &::after,
+    &::before {
+      background-color: $base-color;
+    }
+
+    &::after {
+      box-shadow: 0 5px 0 0 $base-color;
     }
   }
 
@@ -32,7 +86,7 @@
     }
 
     &::before {
-      top: calc(50% - 7px);
+      top: calc(50% - 6px);
     }
 
     &::after {
@@ -48,11 +102,14 @@
     &:hover::after {
       box-shadow: 0 5px 0 0 $base-color;
     }
-
   }
 
   &__button_message.custom-button {
     width: 32px;
     height: 32px;
+  }
+
+  &__open .header-menu__options {
+    display: block;
   }
 }
