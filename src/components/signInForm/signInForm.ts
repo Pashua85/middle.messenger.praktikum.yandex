@@ -1,4 +1,5 @@
 import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
+import { EPage } from '../../enums';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -8,6 +9,7 @@ import './signInForm.scss';
 
 interface SignInFormProps {
   classNames: string[];
+  navigate: (page: EPage) => void;
 }
 
 export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -59,6 +61,6 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    console.log('link click');
+    this.props.navigate(EPage.SIGN_UP);
   }
 }

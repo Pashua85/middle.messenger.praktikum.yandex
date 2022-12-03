@@ -1,4 +1,5 @@
 import { EMAIL_RULES, LOGIN_RULES, NAME_RULES, PASSWORD_RULES, PHONES_RULES } from '../../constants';
+import { EPage } from '../../enums';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -8,6 +9,7 @@ import './signUpForm.scss';
 
 interface SignUpFormProps {
   classNames: string[];
+  navigate: (page: EPage) => void;
 }
 
 export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -105,6 +107,6 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    console.log('link click');
+    this.props.navigate(EPage.SIGN_IN);
   }
 }

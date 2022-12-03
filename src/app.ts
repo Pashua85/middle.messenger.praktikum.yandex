@@ -12,8 +12,8 @@ interface AppProps {
 export class App extends Block<AppProps, AppPage> {
   constructor(props: AppProps) {
     const children = {
-      [EPage.SIGN_IN]: new SignInPage({ classNames: ['sign-in-page'] }),
-      [EPage.SIGN_UP]: new SignUpPage({ classNames: ['sign-up-page'] }),
+      [EPage.SIGN_IN]: new SignInPage({ classNames: ['sign-in-page'], navigate: (page) => this.navigateToPage(page) }),
+      [EPage.SIGN_UP]: new SignUpPage({ classNames: ['sign-up-page'], navigate: (page) => this.navigateToPage(page) }),
     };
 
     super('div', props, children);
@@ -21,5 +21,9 @@ export class App extends Block<AppProps, AppPage> {
 
   protected render(): DocumentFragment {
     return this.compile(template, { page: this.props.page });
+  }
+
+  private navigateToPage(page: EPage): void {
+    this.setProps({ page });
   }
 }
