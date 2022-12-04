@@ -13,5 +13,9 @@
     padding-left: 20px;
     padding-right: 20px;
     background-color: $grey-2;
+
+    &:focus {
+      background-color: transparent;
+    }
   }
 }
