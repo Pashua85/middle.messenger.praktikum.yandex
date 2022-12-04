@@ -29,6 +29,30 @@
       }
     }
 
+    &_message {
+      left: 0;
+      bottom: calc(100% + 20px);
+      min-width: 164px;
+
+      & .menu-option::before {
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+
+      & .menu-option:nth-child(1)::before {
+        background-image: url("../../assets/image.svg");
+      }
+
+      & .menu-option:nth-child(2)::before {
+        background-image: url("../../assets/file.svg");
+      }
+
+      & .menu-option:nth-child(3)::before {
+        background-image: url("../../assets/location.svg");
+      }
+    }
+
     & .menu-option::before {
       content: '';
       position: absolute;
@@ -47,12 +71,7 @@
 
   &__button.custom-button {
     background-color: transparent;
-    border-radius: 50%;
     position: relative;
-
-    &:hover {
-      background-color: $grey-2;
-    }
   }
 
   &_open .context-menu__button_header.custom-button {
@@ -71,7 +90,12 @@
   &__button_header.custom-button {
     width: 25px;
     height: 25px;
+    border-radius: 50%;
     display: block;
+
+    &:hover {
+      background-color: $grey-2;
+    }
     
     &::after,
     &::before {
@@ -107,9 +131,15 @@
   &__button_message.custom-button {
     width: 32px;
     height: 32px;
+    display: block;
+    background-image: url("../../assets/clip.svg");
+
+    &:hover {
+      border: 1px solid $grey-1;
+    }
   }
 
   &__open .header-menu__options {
-    display: block;
+    display: flex;
   }
 }

@@ -7,6 +7,7 @@ interface CustomButtonProps {
   events: Record<string, () => void>;
   classNames?: string[];
   type?: 'button' | 'submit';
+  disabled?: boolean;
 }
 
 export class CustomButton extends Block<CustomButtonProps, never> {
@@ -24,6 +25,21 @@ export class CustomButton extends Block<CustomButtonProps, never> {
   protected init() {
     if (this.element) {
       this.element.setAttribute('type', this.props.type || 'button');
+
+      if (this.props.disabled) {
+        this.element.setAttribute('disabled', 'true');
+      }
     }
+  }
+
+  protected componentDidUpdate(oldProps: CustomButtonProps, newProps: CustomButtonProps): boolean {
+    if (this.element && oldProps.disabled !== newProps.disabled) {
+      if (newProps.disabled) {
+        this.element.setAttribute('disabled', 'true');
+      } else {
+        this.element.removeAttribute('disabled');
+      }
+    }
+    return true;
   }
 }

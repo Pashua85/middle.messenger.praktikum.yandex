@@ -4,6 +4,7 @@ import './chat.scss';
 import { ContextMenu } from '../contextMenu';
 import { EContextMenu } from '../../enums';
 import { MenuOption } from '../menuOption';
+import { MessageForm } from '../messageForm';
 
 interface ChatProps {
   classNames: string[];
@@ -11,7 +12,7 @@ interface ChatProps {
   // navigate: (page: EPage) => void;
 }
 
-export class Chat extends Block<ChatProps, ContextMenu> {
+export class Chat extends Block<ChatProps, ContextMenu | MessageForm> {
   constructor(props: ChatProps) {
     const children = {
       contextMenu: new ContextMenu(
@@ -31,6 +32,7 @@ export class Chat extends Block<ChatProps, ContextMenu> {
           }),
         },
       ),
+      messageForm: new MessageForm({}),
     };
 
     super('div', props, children);

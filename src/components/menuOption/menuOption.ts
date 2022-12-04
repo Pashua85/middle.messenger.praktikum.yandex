@@ -19,4 +19,10 @@ export class MenuOption extends Block<MenuOptionProps, never> {
   public render() {
     return this.compile(template, { ...this.props });
   }
+
+  protected init() {
+    if (this.element) {
+      this.element.setAttribute('type', 'button');
+    }
+  }
 }

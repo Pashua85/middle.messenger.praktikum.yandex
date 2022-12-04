@@ -11,4 +11,8 @@
   cursor: pointer;
   font-size: 13px;
   line-height: 13px;
+
+  &:disabled {
+    background-color: $grey-1;
+  }
 }
