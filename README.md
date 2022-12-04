@@ -21,6 +21,10 @@
 
     npm run start
 
+Проверка кода с помощью `eslint`:
+
+    npm run lint
+
 ## Netlify
 
 Развернутый проект можно посмотреть по [этой ссылке](https://melodious-tartufo-7c9b2a.netlify.app/).
