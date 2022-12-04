@@ -1,4 +1,4 @@
-@import "../../variables.scss";
+@import url("../../variables.scss");
 
 .message-form {
   border-top: 1px solid $border-color;
@@ -12,7 +12,7 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-image: url('../../assets/right-2.svg');
+    background-image: url("../../assets/right-2.svg");
     background-position: center;
     background-repeat: no-repeat;
   }
