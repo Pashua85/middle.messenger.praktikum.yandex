@@ -1,0 +1,30 @@
+
+<div class="profile-form__fields">
+  {{{emailInput}}}
+  {{{loginInput}}}
+  {{{firstNameInput}}}
+  {{{secondNameInput}}}
+  {{{displayNameInput}}}
+  {{{phoneInput}}}
+</div>
+
+
+
+<div class="profile-form__buttons">
+  {{#if isInViewMode}}
+    <div class="profile-form__link-row">
+      {{{dataLink}}}
+    </div>
+    <div class="profile-form__link-row">
+      {{{passwordLink}}}
+    </div>
+    <div class="profile-form__link-row">
+      {{{exitLink}}}
+    </div>
+  {{/if}}
+  {{#unless isInViewMode}}
+    <div class="custom-button__container">
+      {{{button}}}
+    </div>
+  {{/unless}}
+</div>

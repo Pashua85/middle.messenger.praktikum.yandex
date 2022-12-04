@@ -1,0 +1,21 @@
+@import "../../variables.scss";
+
+.message-input {
+  flex: 1;
+
+  &__field {
+    width: 100%;
+    display: inline-block;
+    height: 32px;
+    outline: none;
+    border: 1px solid $border-color;
+    border-radius: 30px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: $grey-2;
+
+    &:focus {
+      background-color: transparent;
+    }
+  }
+}

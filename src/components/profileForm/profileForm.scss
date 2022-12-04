@@ -1,0 +1,40 @@
+@import "../../variables.scss";
+
+.profile-form {
+  width: 510px;
+  margin-bottom: 50px;
+
+  &__buttons {
+    margin-top: 90px;
+  }
+
+  & .custom-button {
+    &__container {
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  &__link-row {
+    height: 34px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $border-color;
+    }
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $base-color;
+
+    &_exit {
+      color: $red;
+    }
+  }
+}
+
+
+
