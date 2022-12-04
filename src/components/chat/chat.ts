@@ -9,7 +9,6 @@ import { MessageForm } from '../messageForm';
 interface ChatProps {
   classNames: string[];
   title: string;
-  // navigate: (page: EPage) => void;
 }
 
 export class Chat extends Block<ChatProps, ContextMenu | MessageForm> {

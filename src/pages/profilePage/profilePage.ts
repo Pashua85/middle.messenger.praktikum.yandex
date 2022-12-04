@@ -4,6 +4,7 @@ import { ProfileForm } from '../../components/profileForm/profileForm';
 import template from './profilePage.hbs';
 import './profilePage.scss';
 import { PasswordForm } from '../../components/passwordForm';
+import { CustomButton } from '../../components/customButton';
 
 interface ProfilePageProps {
   classNames: string[];
@@ -11,7 +12,7 @@ interface ProfilePageProps {
   viewMode: EProfilePageViewMode;
 }
 
-export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordForm> {
+export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordForm | CustomButton> {
   constructor(props: ProfilePageProps) {
     const children = {
       profileForm: new ProfileForm({
@@ -21,6 +22,14 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
       }),
       passwordForm: new PasswordForm({
         returnToProfile: () => this.changeViewMode(EProfilePageViewMode.PROFILE),
+      }),
+      backButton: new CustomButton({
+        label: '',
+        classNames: ['profile__back'],
+        events: {
+          click: () => this.props.navigate(EPage.CHATS),
+        },
+        type: 'submit',
       }),
     };
 
