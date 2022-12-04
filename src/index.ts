@@ -15,6 +15,6 @@ function render(query: string, block: Block) {
   return root;
 }
 
-const app = new App({ page: EPage.ERROR });
+const app = new App({ page: EPage.SIGN_IN });
 
 render('.app', app);
