@@ -52,3 +52,49 @@
     color: $error-color;
   }
 }
+
+.row-input {
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid $border-color;
+  }
+
+  &__input {
+    text-align: right;
+    border: none;
+    outline: none;
+    color: $grey;
+    width: 60%;
+
+    &:disabled {
+      color: $grey;
+      background-color: transparent;
+    }
+
+    &:focus {
+      color: $base-font-color;
+    }
+  }
+
+  &__label {
+    cursor: text;
+  }
+
+  &_invalid {
+    color: $error-color;
+  }
+
+  &__errorMessage {
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    font-size: 8px;
+    line-height: 8px;
+    color: $error-color;
+  }
+}

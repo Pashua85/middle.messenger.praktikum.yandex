@@ -1,7 +1,9 @@
 import { Block } from '../../core';
+import { EInputType } from '../../enums';
 import { FormInputRules } from '../../types';
 import { Input } from '../input';
 import template from './formInput.hbs';
+import rowTemplate from './rowInput.hbs';
 import './formInput.scss';
 
 interface FormInputProps {
@@ -13,18 +15,33 @@ interface FormInputProps {
   errorMessage?: string;
   value?: string;
   rules?: FormInputRules;
+  componentType: EInputType;
+  disabled?: boolean;
+  id: string;
 }
 
 export class FormInput extends Block<FormInputProps, Input> {
   private _value: number | string = '';
 
+  private inputClass = 'form-input';
+
+  private inputInvalidClass = 'form-input_invalid';
+
+  private containerClass = 'form-input__container';
+
   constructor(props: FormInputProps) {
+    const isRegular = props.componentType === EInputType.REGULAR;
+    const inputClass = isRegular ? 'form-input' : 'row-input__input';
+    const invalidInputClass = isRegular ? 'form-input_invalid' : 'row-input__input_invalid';
+    const containerClass = isRegular ? 'form-input__container' : 'row-input';
+
     const children = {
       input: new Input({
         type: props.type,
         name: props.name,
         placeholder: props.placeholder,
-        classNames: ['form-input'],
+        classNames: [inputClass],
+        disabled: props.disabled,
         events: {
           blur: () => {
             this.handleBlur();
@@ -40,10 +57,14 @@ export class FormInput extends Block<FormInputProps, Input> {
       'div',
       {
         ...props,
-        classNames: props.classNames ? [...props.classNames, 'form-input__container'] : ['form-input__container'],
+        classNames: props.classNames ? [...props.classNames, containerClass] : [containerClass],
       },
       children,
     );
+
+    this.inputClass = inputClass;
+    this.inputInvalidClass = invalidInputClass;
+    this.containerClass = containerClass;
   }
 
   public get value(): number | string {
@@ -51,7 +72,8 @@ export class FormInput extends Block<FormInputProps, Input> {
   }
 
   public render(): DocumentFragment {
-    return this.compile(template, { ...this.props });
+    const templateToRender = this.props.componentType === EInputType.REGULAR ? template : rowTemplate;
+    return this.compile(templateToRender, { ...this.props });
   }
 
   public validate(): boolean {
@@ -74,9 +96,18 @@ export class FormInput extends Block<FormInputProps, Input> {
   protected componentDidUpdate(oldProps: FormInputProps, newProps: FormInputProps): boolean {
     if (oldProps.errorMessage !== newProps.errorMessage) {
       if (newProps.errorMessage) {
-        this.children.input.setProps({ classNames: ['form-input', 'form-input_invalid'] });
+        this.children.input.setProps({ classNames: [this.inputClass, this.inputInvalidClass] });
       } else {
-        this.children.input.setProps({ classNames: ['form-input'] });
+        this.children.input.setProps({ classNames: [this.inputClass] });
+      }
+    }
+
+    if (oldProps.disabled !== newProps.disabled) {
+      console.log({ oldProps, newProps });
+      if (newProps.disabled) {
+        this.children.input.setProps({ disabled: true });
+      } else {
+        this.children.input.setProps({ disabled: false });
       }
     }
 

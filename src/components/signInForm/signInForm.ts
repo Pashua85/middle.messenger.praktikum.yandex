@@ -1,5 +1,5 @@
 import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
-import { EPage } from '../../enums';
+import { EInputType, EPage } from '../../enums';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -18,13 +18,17 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
       label: 'Логин',
       name: 'login',
       type: 'text',
+      id: 'login',
       rules: LOGIN_RULES,
+      componentType: EInputType.REGULAR,
     });
     const passwordInput = new FormInput({
       label: 'Пароль',
       name: 'password',
+      id: 'password',
       type: 'password',
       rules: PASSWORD_RULES,
+      componentType: EInputType.REGULAR,
     });
 
     const children = {

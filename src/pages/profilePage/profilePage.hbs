@@ -1,4 +1,4 @@
-<div class="profile">
+{{!-- <div class="profile"> --}}
   <button class="profile__back"></button>
   <main class="profile__main">
     <div 
@@ -6,18 +6,13 @@
       {{#unless isInViewMode}}class="profile__photo-container profile__photo-container_editing"{{/unless}}
     >
       <a href="#" class="profile__photo-link">
-        {{#if imgUrl}}
-          <img src="{{{imgUrl}}}" alt="profilePhoto" class="profile__photo" width="130" height="130" />
-        {{/if}}
-        {{#unless imgUrl}}
-          <div class="profile__photo-placeholder"></div>
-        {{/unless}}
+        <div class="profile__photo-placeholder"></div>
       </a>
     </div>
     {{#if isInViewMode}}
       <div class="profile__name">{{name}}</div>
     {{/if}}
-    <form class="profile__form">
+    {{!-- <form class="profile__form">
       <div class="form__fields">
         {{#unless editPassword}}
           {{>rowInput  label="Почта" id="email" type="text" name="email" isInViewMode=isInViewMode  value="email@test.ru" }}
@@ -52,6 +47,12 @@
           </div>
         {{/unless}}
       </div>
-    </form>
+    </form> --}}
+    {{#if_eq viewMode 'profile' }}
+      {{{profileForm}}}
+    {{/if_eq}}
+    {{#if_eq viewMode 'password' }}
+      {{{passwordForm}}}
+    {{/if_eq}}
   </main>
-</div>
+{{!-- </div> --}}

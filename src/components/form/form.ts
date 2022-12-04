@@ -31,6 +31,14 @@ export abstract class Form<
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
   protected handleSubmit(_formValues: Record<string, string | number>): void {}
 
+  protected enableForm(): void {
+    this.fields.forEach((item) => item.setProps({ disabled: false }));
+  }
+
+  protected disableForm(): void {
+    this.fields.forEach((item) => item.setProps({ disabled: true }));
+  }
+
   private _handleSubmit(): void {
     if (this.validateForm()) {
       this.handleSubmit(this.getFormValues());
