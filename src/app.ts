@@ -5,7 +5,8 @@ import { AppPage } from './types/appPage';
 import { SignInPage } from './pages/signInPage';
 import { SignUpPage } from './pages/signUpPage';
 import { ChatsPage } from './pages/chatsPage';
-import { ProfilePage } from './pages/profilePage/profilePage';
+import { ProfilePage } from './pages/profilePage';
+import { ErrorPage } from './pages/errorPage';
 
 interface AppProps {
   page: EPage;
@@ -21,6 +22,11 @@ export class App extends Block<AppProps, AppPage> {
         classNames: ['profile'],
         navigate: (page) => this.navigateToPage(page),
         viewMode: EProfilePageViewMode.PROFILE,
+      }),
+      [EPage.ERROR]: new ErrorPage({
+        navigate: (page) => this.navigateToPage(page),
+        errorNumber: 505,
+        errorMessage: 'Что-то пошло не так',
       }),
     };
 

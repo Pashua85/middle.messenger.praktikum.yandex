@@ -1,49 +1,30 @@
-{{!-- <form class="profile__form"> --}}
-  <div class="profile-form__fields">
-    {{!-- {{#unless editPassword}} --}}
-      {{{emailInput}}}
-      {{{loginInput}}}
-      {{{firstNameInput}}}
-      {{{secondNameInput}}}
-      {{{displayNameInput}}}
-      {{{phoneInput}}}
 
-      {{!-- {{>rowInput  label="Почта" id="email" type="text" name="email" isInViewMode=isInViewMode  value="email@test.ru" }}
-      {{>rowInput label="Логин" id="phone" type="text" name="login" isInViewMode=isInViewMode   value="ivanov" }}
-      {{>rowInput label="Имя" id="first_name" type="text" name="first_name" isInViewMode=isInViewMode   value="Иван" }}
-      {{>rowInput label="Фамилия" id="second_name" type="text" name="second_name" isInViewMode=isInViewMode   value="Иванов" }}
-      {{>rowInput label="Имя в чате" id="display_name" type="text" name="display_name" isInViewMode=isInViewMode   value="Иванов" }}
-      {{>rowInput label="Телефон" id="phone" name="phone" type="text" isInViewMode=isInViewMode   value="+7(909)9673030" }} --}}
-    {{!-- {{/unless}} --}}
-    {{!-- {{#if editPassword}}
-      {{>rowInput  label="Старый пароль" id="old_password" type="password" name="old_password" isInViewMode=false value="password" }}
-      {{>rowInput label="Новый пароль" id="password" type="password" name="password" isInViewMode=false   value="123" }}
-      {{>rowInput label="Повторите новый пароль" id="password_repeat" type="password" name="password_repeat" isInViewMode=false value="123" }}
-    {{/if}} --}}
-  </div>
+<div class="profile-form__fields">
+  {{{emailInput}}}
+  {{{loginInput}}}
+  {{{firstNameInput}}}
+  {{{secondNameInput}}}
+  {{{displayNameInput}}}
+  {{{phoneInput}}}
+</div>
 
 
 
-  <div class="profile-form__buttons">
-    {{#if isInViewMode}}
-      <div class="profile-form__link-row">
-        {{!-- <a href="#" class="profile-form__link profile-form__link_data">Изменить данные</a> --}}
-        {{{dataLink}}}
-      </div>
-      <div class="profile-form__link-row">
-        {{!-- <a href="#" class="profile-form__link profile-form__link_password">Изменить пароль</a> --}}
-        {{{passwordLink}}}
-      </div>
-      <div class="profile-form__link-row">
-        {{!-- <a href="#" class="profile-form__link profile-form__link_exit">Выйти</a> --}}
-        {{{exitLink}}}
-      </div>
-    {{/if}}
-    {{#unless isInViewMode}}
-      <div class="custom-button__container">
-        {{{button}}}
-        {{!-- {{> customButton type="submit" title="Сохранить" id="save-profile-form"}} --}}
-      </div>
-    {{/unless}}
-  </div>
-{{!-- </form> --}}
+<div class="profile-form__buttons">
+  {{#if isInViewMode}}
+    <div class="profile-form__link-row">
+      {{{dataLink}}}
+    </div>
+    <div class="profile-form__link-row">
+      {{{passwordLink}}}
+    </div>
+    <div class="profile-form__link-row">
+      {{{exitLink}}}
+    </div>
+  {{/if}}
+  {{#unless isInViewMode}}
+    <div class="custom-button__container">
+      {{{button}}}
+    </div>
+  {{/unless}}
+</div>

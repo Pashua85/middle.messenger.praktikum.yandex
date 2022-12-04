@@ -15,6 +15,6 @@ function render(query: string, block: Block) {
   return root;
 }
 
-const app = new App({ page: EPage.PROFILE });
+const app = new App({ page: EPage.ERROR });
 
 render('.app', app);

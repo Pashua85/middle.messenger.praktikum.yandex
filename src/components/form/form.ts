@@ -9,8 +9,6 @@ export abstract class Form<
     value: '';
   },
 > extends Block<TProps, TChildren> {
-  // private fields: TFields[] = [];
-
   constructor(props: TProps, children: BlockChildren<TChildren> = {}, private fields: TFields[]) {
     super(
       'form',

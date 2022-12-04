@@ -74,7 +74,7 @@ export abstract class Block<
 
     temp.innerHTML = html;
 
-    Object.entries(this.children).forEach(([key, component]) => {
+    Object.values(this.children).forEach((component) => {
       const stub = temp.content.querySelector(`[data-id='${component.id}']`);
 
       if (!stub) {

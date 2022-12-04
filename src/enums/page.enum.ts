@@ -3,4 +3,5 @@ export enum EPage {
   SIGN_UP = 'signUp',
   CHATS = 'chats',
   PROFILE = 'profile',
+  ERROR = 'error',
 }
