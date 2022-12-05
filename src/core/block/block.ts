@@ -149,7 +149,7 @@ export abstract class Block<
   private _createResources() {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
-    const classNames = this._meta.props['classNames' as keyof TProps];
+    const classNames = this._meta.props['classNames' as keyof TProps] as string[];
 
     if (Array.isArray(classNames)) {
       this._element.classList.add(...classNames);
