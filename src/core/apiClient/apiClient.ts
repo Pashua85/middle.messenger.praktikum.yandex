@@ -1,50 +1,40 @@
 import { ERequestMethod } from '../../enums';
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function queryStringify(data: any) {
-  if (!data) return '';
-  const queryParams = Object.keys(data).map((item) => `${item}=${data[item]}`);
-  return `?${queryParams.join('&')}`;
-}
-
-// TODO убрать any
-interface IRequestOptions {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  data?: any;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  headers?: Record<string, any>;
-  timeout?: number;
-}
+import { IRequestOptions } from '../../interfaces';
+import { HttpMethod } from '../../types';
+import { queryStringify } from '../../utils';
 
 export class ApiClient {
-  public get(url: string, options: IRequestOptions = {}): Promise<XMLHttpRequest> {
+  public get: HttpMethod = (url, options = {}) => {
     return this.request({
       url: url + queryStringify(options.data),
       method: ERequestMethod.GET,
       options,
     });
-  }
-  public post(url: string, options: IRequestOptions = {}): Promise<XMLHttpRequest> {
+  };
+
+  public post: HttpMethod = (url, options = {}) => {
     return this.request({
       url,
       method: ERequestMethod.POTS,
       options,
     });
-  }
-  public put(url: string, options: IRequestOptions = {}): Promise<XMLHttpRequest> {
+  };
+
+  public put: HttpMethod = (url, options = {}) => {
     return this.request({
       url,
       method: ERequestMethod.PUT,
       options,
     });
-  }
-  public delete(url: string, options: IRequestOptions = {}): Promise<XMLHttpRequest> {
+  };
+
+  public delete: HttpMethod = (url, options = {}) => {
     return this.request({
       url,
       method: ERequestMethod.DELETE,
       options,
     });
-  }
+  };
 
   private request({
     url,
