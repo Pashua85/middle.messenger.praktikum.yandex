@@ -1,18 +1,34 @@
-<div class="chats">
-  <div class="chats__sidebar">
-    <div class="sidebar__header">
-      <a href="#" class="sidebar__link">Профиль</a>
+<div class="chats__sidebar">
+  <div class="sidebar__header">
+    {{{profileLink}}}
+  </div>
+  <div class="sidebar__search">
+    <span class="sidebar__input-container">
+      <input type="text" class="sidebar__input" placeholder="Поиск"/>
+    </span>
+  </div>
+  <div class="chats__list">
+    <div class="chats-item">
+      <div class="chats-item__avatar-container">
+        <img class="chats-item__avatar" alt="Виктор" src="https://i.pravatar.cc/47" width="47" height="47"/>
+      </div>
+      <div class="chats-item__content">
+        <div class="chats-item__title">Виктор</div>
+        <div class="chats-item__message"><span>Последнее сообщение</span></div>
+      </div>
+      <div class="chats-item__time">11:02</div>
+      <div class="chats-item__unread">2</div>
     </div>
-    <div class="sidebar__search">
-      <span class="sidebar__input-container">
-        <input type="text" class="sidebar__input" placeholder="Поиск"/>
-      </span>
-    </div>
-    <div class="chats__list">
-
+    <div class="chats-item">
+      <div class="chats-item__avatar-container">
+        <img class="chats-item__avatar" alt="Андрей" src="https://i.pravatar.cc/23" width="47" height="47"/>
+      </div>
+      <div class="chats-item__content">
+        <div class="chats-item__title">Андрей</div>
+        <div class="chats-item__message chats-item__message_own"><span>Последнее сообщение</span></div>
+      </div>
+      <div class="chats-item__time">11:23</div>
     </div>
   </div>
-  <main class="chats__main chats__main_empty">
-    <p class="chats__empty-message">Страница будет реализована в следующем спринте.</p>
-  </main>
 </div>
+{{{chat}}}

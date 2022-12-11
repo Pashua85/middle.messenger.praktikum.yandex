@@ -1,0 +1,19 @@
+@import "../../variables.scss";
+
+.message-form {
+  border-top: 1px solid $border-color;
+  padding-top: 11px;
+  padding-bottom: 11px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__button.custom-button {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-image: url("../../assets/right-2.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+}

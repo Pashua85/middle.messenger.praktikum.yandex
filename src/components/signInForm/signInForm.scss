@@ -1,0 +1,32 @@
+@import "../../variables.scss";
+
+.sign-in-form {
+  padding: 50px 30px 30px;
+  width: 340px;
+  box-shadow: 0 0 6px $shadow-color;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  min-height: 450px;
+
+  &__title {
+    margin-bottom: 40px;
+    font-size: 20px;
+    line-height: 20px;
+    text-align: center;
+  }
+
+  &__buttons {
+    margin-top: auto;
+  }
+
+  &__link {
+    text-decoration: none;
+    color: $base-color;
+    display: block;
+    width: fit-content;
+    margin: 14px auto 0;
+    font-size: 11px;
+    line-height: 11px;
+  }
+}

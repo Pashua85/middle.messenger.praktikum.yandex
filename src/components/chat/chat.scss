@@ -1,0 +1,89 @@
+@import "../../variables.scss";
+
+.chat {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 10px;
+
+  &__main {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 1300px;
+    width: 100%;
+    align-self: center;
+    overflow-y: auto;
+  }
+
+  &__date {
+    width: fit-content;
+    align-self: center;
+    padding: 20px;
+    color: $grey;
+  }
+}
+
+.chat-header {
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  &__avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    vertical-align: middle;
+  }
+
+  &__title {
+    font-weight: 600;
+  }
+
+  &__menu {
+    margin-left: auto;
+  }
+}
+
+.chat-message {
+  align-self: flex-start;
+  padding: 10px 10px 15px;
+  background-color: $grey-4;
+  border-radius: 0 8px 8px 8px;
+  position: relative;
+
+  &__time {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 9px;
+    color: gray;
+  }
+
+  &_own {
+    align-self: flex-end;
+    border-radius: 8px 8px 0 8px;
+    background-color: $blue-1;
+    color: $blue;
+
+    & .chat-message__time {
+      color: $blue;
+    }
+  }
+
+  &_delivered::after {
+    content:'';
+    display: block;
+    width: 10px;
+    height: 5px;
+    background: url('../../assets/delivered.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    position:absolute;
+    bottom: 14px;
+    right: 40px;
+  }
+}

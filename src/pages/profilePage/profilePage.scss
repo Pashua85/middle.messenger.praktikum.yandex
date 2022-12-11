@@ -4,13 +4,15 @@
   display: flex;
   height: 100vh;
 
-  &__back {
+  &__back.custom-button {
     display: block;
     width: 65px;
+    height: 100%;
     background-color: transparent;
-    background-image: url('../../assets/left.svg');
+    background-image: url("../../assets/left.svg");
     background-repeat: no-repeat;
     background-position: center;
+    border-radius: 0;
     border-left: none;
     border-top: none;
     border-bottom: none;
@@ -55,41 +57,5 @@
     line-height: 16px;
     font-weight: 600;
     margin-bottom: 50px;
-  }
-
-  &__form {
-    width: 510px;
-    margin-bottom: 50px;
-  }
-
-  &__link-row {
-    height: 34px;
-    display: flex;
-    align-items: center;
-    width: 100%;
-  
-    &:not(:last-child) {
-      border-bottom: 1px solid $border-color;
-    }
-  }
-
-  &__link {
-    text-decoration: none;
-    color: $base-color;
-
-    &_exit {
-      color: $red;
-    }
-  }
-}
-
-.form__buttons {
-  margin-top: 50px;
-}
-
-.custom-button {
-  &__container {
-    display: flex;
-    justify-content: center;
   }
 }
