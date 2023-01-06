@@ -9,7 +9,6 @@ import './signInForm.scss';
 
 interface SignInFormProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
 }
 
 export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -61,11 +60,11 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
 
   protected handleSubmit(formValues: Record<string, string | number>): void {
     console.log({ formValues });
-    this.props.navigate(EPage.CHATS);
+    // this.props.navigate(EPage.CHATS);
   }
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    this.props.navigate(EPage.SIGN_UP);
+    // this.props.navigate(EPage.SIGN_UP);
   }
 }

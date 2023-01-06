@@ -9,7 +9,7 @@ import './signUpForm.scss';
 
 interface SignUpFormProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
+  // navigate: (page: EPage) => void;
 }
 
 export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -121,6 +121,6 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    this.props.navigate(EPage.SIGN_IN);
+    // this.props.navigate(EPage.SIGN_IN);
   }
 }

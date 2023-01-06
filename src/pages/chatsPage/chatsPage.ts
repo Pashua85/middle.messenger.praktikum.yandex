@@ -7,11 +7,13 @@ import { TextLink } from '../../components/textLink/textLink';
 
 interface ChatsPageProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
+  // navigate: (page: EPage) => void;
 }
 
 export class ChatsPage extends Block<ChatsPageProps, Chat | TextLink> {
   constructor(props: ChatsPageProps) {
+    console.log({ chatProps: props });
+
     const children = {
       chat: new Chat({ classNames: ['chat'], title: 'Виктор' }),
       profileLink: new TextLink({
@@ -20,13 +22,13 @@ export class ChatsPage extends Block<ChatsPageProps, Chat | TextLink> {
         events: {
           click: (e: Event) => {
             e.preventDefault();
-            this.props.navigate(EPage.PROFILE);
+            // this.props.navigate(EPage.PROFILE);
           },
         },
       }),
     };
 
-    super('div', props, children);
+    super('div', { ...props, classNames: ['chats'] }, children);
   }
 
   protected render(): DocumentFragment {

@@ -15,16 +15,16 @@ interface AppProps {
 export class App extends Block<AppProps, AppPage> {
   constructor(props: AppProps) {
     const children = {
-      [EPage.SIGN_IN]: new SignInPage({ classNames: ['sign-in-page'], navigate: (page) => this.navigateToPage(page) }),
-      [EPage.SIGN_UP]: new SignUpPage({ classNames: ['sign-up-page'], navigate: (page) => this.navigateToPage(page) }),
-      [EPage.CHATS]: new ChatsPage({ classNames: ['chats'], navigate: (page) => this.navigateToPage(page) }),
+      [EPage.SIGN_IN]: new SignInPage({ classNames: ['sign-in-page'] }),
+      [EPage.SIGN_UP]: new SignUpPage({ classNames: ['sign-up-page'] }),
+      [EPage.CHATS]: new ChatsPage({ classNames: ['chats'] }),
       [EPage.PROFILE]: new ProfilePage({
         classNames: ['profile'],
-        navigate: (page) => this.navigateToPage(page),
+        // navigate: (page) => this.navigateToPage(page),
         viewMode: EProfilePageViewMode.PROFILE,
       }),
       [EPage.ERROR]: new ErrorPage({
-        navigate: (page) => this.navigateToPage(page),
+        // navigate: (page) => this.navigateToPage(page),
         errorNumber: 505,
         errorMessage: 'Что-то пошло не так',
       }),

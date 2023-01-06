@@ -6,16 +6,16 @@ import './signUpPage.scss';
 
 interface SingUpPageProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
+  // navigate: (page: EPage) => void;
 }
 
 export class SignUpPage extends Block<SingUpPageProps, SingUpForm> {
   constructor(props: SingUpPageProps) {
     const children = {
-      signUpForm: new SingUpForm({ classNames: ['sign-up-form'], navigate: props.navigate }),
+      signUpForm: new SingUpForm({ classNames: ['sign-up-form'] }),
     };
 
-    super('div', props, children);
+    super('div', { ...props, classNames: ['sign-up-page'] }, children);
   }
 
   protected render(): DocumentFragment {

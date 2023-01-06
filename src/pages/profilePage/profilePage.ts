@@ -8,7 +8,7 @@ import { CustomButton } from '../../components/customButton';
 
 interface ProfilePageProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
+  // navigate: (page: EPage) => void;
   viewMode: EProfilePageViewMode;
 }
 
@@ -17,7 +17,9 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
     const children = {
       profileForm: new ProfileForm({
         isInViewMode: true,
-        navigate: props.navigate,
+        navigate: () => {
+          console.log('navigate');
+        },
         onOpenPasswordForm: () => this.changeViewMode(EProfilePageViewMode.PASSWORD),
       }),
       passwordForm: new PasswordForm({
@@ -27,13 +29,13 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
         label: '',
         classNames: ['profile__back'],
         events: {
-          click: () => this.props.navigate(EPage.CHATS),
+          // click: () => this.props.navigate(EPage.CHATS),
         },
         type: 'submit',
       }),
     };
 
-    super('div', props, children);
+    super('div', { ...props, classNames: ['profile'] }, children);
   }
 
   protected render(): DocumentFragment {
