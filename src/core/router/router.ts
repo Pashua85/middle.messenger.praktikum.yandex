@@ -47,12 +47,17 @@ class Router {
   private _onRoute(pathname: string) {
     const route = this.getRoute(pathname);
 
-    if (this.currentRoute) {
+    if (!route) {
+      return;
+    }
+
+    if (this.currentRoute && this.currentRoute !== route) {
       this.currentRoute.leave();
     }
 
     this.currentRoute = route;
-    route?.render();
+
+    route.render();
   }
 
   private getRoute(pathname: string) {

@@ -1,9 +1,10 @@
 import { Block } from '../../core';
-import { EPage } from '../../enums';
+import { EPage, ERoute } from '../../enums';
 import template from './chatsPage.hbs';
 import './chatsPage.scss';
 import { Chat } from '../../components/chat/chat';
 import { TextLink } from '../../components/textLink/textLink';
+import { navigate } from '../../utils';
 
 interface ChatsPageProps {
   classNames: string[];
@@ -12,8 +13,6 @@ interface ChatsPageProps {
 
 export class ChatsPage extends Block<ChatsPageProps, Chat | TextLink> {
   constructor(props: ChatsPageProps) {
-    console.log({ chatProps: props });
-
     const children = {
       chat: new Chat({ classNames: ['chat'], title: 'Виктор' }),
       profileLink: new TextLink({
@@ -22,7 +21,7 @@ export class ChatsPage extends Block<ChatsPageProps, Chat | TextLink> {
         events: {
           click: (e: Event) => {
             e.preventDefault();
-            // this.props.navigate(EPage.PROFILE);
+            navigate(ERoute.Profile);
           },
         },
       }),

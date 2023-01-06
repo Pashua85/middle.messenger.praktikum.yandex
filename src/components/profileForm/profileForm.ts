@@ -1,5 +1,6 @@
 import { EMAIL_RULES, LOGIN_RULES, NAME_RULES, PHONES_RULES } from '../../constants';
-import { EInputType, EPage } from '../../enums';
+import { EInputType, ERoute } from '../../enums';
+import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -10,7 +11,7 @@ import './profileForm.scss';
 interface ProfileFormProps {
   classNames?: string[];
   isInViewMode: boolean;
-  navigate: (page: EPage) => void;
+  // navigate: (page: EPage) => void;
   onOpenPasswordForm: () => void;
 }
 
@@ -110,7 +111,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
         events: {
           click: (e: Event) => {
             e.preventDefault();
-            this.props.navigate(EPage.CHATS);
+            navigate(ERoute.Chats);
           },
         },
       }),

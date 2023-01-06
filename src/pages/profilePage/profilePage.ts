@@ -1,10 +1,11 @@
 import { Block } from '../../core';
-import { EPage, EProfilePageViewMode } from '../../enums';
+import { EPage, EProfilePageViewMode, ERoute } from '../../enums';
 import { ProfileForm } from '../../components/profileForm/profileForm';
 import template from './profilePage.hbs';
 import './profilePage.scss';
 import { PasswordForm } from '../../components/passwordForm';
 import { CustomButton } from '../../components/customButton';
+import { navigate } from '../../utils';
 
 interface ProfilePageProps {
   classNames: string[];
@@ -17,9 +18,6 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
     const children = {
       profileForm: new ProfileForm({
         isInViewMode: true,
-        navigate: () => {
-          console.log('navigate');
-        },
         onOpenPasswordForm: () => this.changeViewMode(EProfilePageViewMode.PASSWORD),
       }),
       passwordForm: new PasswordForm({
@@ -29,7 +27,7 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
         label: '',
         classNames: ['profile__back'],
         events: {
-          // click: () => this.props.navigate(EPage.CHATS),
+          click: () => navigate(ERoute.Chats),
         },
         type: 'submit',
       }),

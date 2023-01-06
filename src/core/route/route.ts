@@ -6,6 +6,7 @@ function render(query: string, block: Block) {
   const content = block?.getContent();
 
   if (root && content) {
+    root.innerHTML = '';
     root.appendChild(content);
   }
   return root;

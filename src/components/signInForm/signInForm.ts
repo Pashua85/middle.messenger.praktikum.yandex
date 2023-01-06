@@ -1,5 +1,6 @@
 import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
-import { EInputType, EPage } from '../../enums';
+import { EInputType, EPage, ERoute } from '../../enums';
+import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
@@ -61,10 +62,12 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
   protected handleSubmit(formValues: Record<string, string | number>): void {
     console.log({ formValues });
     // this.props.navigate(EPage.CHATS);
+    navigate(ERoute.Chats);
   }
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
     // this.props.navigate(EPage.SIGN_UP);
+    navigate(ERoute.Register);
   }
 }

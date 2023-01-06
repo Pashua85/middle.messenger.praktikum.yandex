@@ -3,3 +3,4 @@ export * from './contextMenu.enum';
 export * from './inputType.enum';
 export * from './profilePageViewMode.enum';
 export * from './requestMethod.enum';
+export * from './route.enum';
