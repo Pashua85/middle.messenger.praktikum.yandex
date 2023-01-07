@@ -4,3 +4,5 @@ export * from './appPage';
 export * from './blockInterface';
 export * from './formInputRules';
 export * from './httpMethod';
+export * from './indexed';
+export * from './withRouterBlock';

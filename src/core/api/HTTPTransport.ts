@@ -1,89 +1,179 @@
-import { ERequestMethod } from '../../enums';
-import { IRequestOptions } from '../../interfaces';
-import { HttpMethod } from '../../types';
-import { queryStringify } from '../../utils';
+// import { ERequestMethod } from '../../enums';
+// import { IRequestOptions } from '../../interfaces';
+// import { HttpMethod } from '../../types';
+// import { queryStringify } from '../../utils';
 
-export class HTTPTransport {
-  private static API_URL = 'https://ya-praktikum.tech/api/v2';
+// export class HTTPTransport {
+//   private static API_URL = 'https://ya-praktikum.tech/api/v2';
+//   protected endpoint: string;
+
+//   constructor(endpoint: string) {
+//     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+//   }
+
+//   public get: HttpMethod = (url, options = {}) => {
+//     return this.request({
+//       url: url + queryStringify(options.data),
+//       method: ERequestMethod.GET,
+//       options,
+//     });
+//   };
+
+//   public post: HttpMethod = (url, options = {}) => {
+//     return this.request({
+//       url,
+//       method: ERequestMethod.POTS,
+//       options,
+//     });
+//   };
+
+//   public put: HttpMethod = (url, options = {}) => {
+//     return this.request({
+//       url,
+//       method: ERequestMethod.PUT,
+//       options,
+//     });
+//   };
+
+//   public delete: HttpMethod = (url, options = {}) => {
+//     return this.request({
+//       url,
+//       method: ERequestMethod.DELETE,
+//       options,
+//     });
+//   };
+
+//   private request({
+//     url,
+//     method,
+//     options,
+//   }: {
+//     url: string;
+//     method: ERequestMethod;
+//     options: IRequestOptions;
+//   }): Promise<XMLHttpRequest> {
+//     return new Promise((resolve, reject) => {
+//       const { data, headers, timeout } = options;
+//       const xhr = new XMLHttpRequest();
+//       xhr.open(method, url);
+
+//       xhr.onload = () => {
+//         if (xhr.status !== 200) {
+//           reject(xhr);
+//         } else {
+//           resolve(xhr);
+//         }
+//       };
+
+//       xhr.onabort = reject;
+//       xhr.onerror = reject;
+//       xhr.ontimeout = reject;
+
+//       if (headers) {
+//         Object.keys(headers).forEach((key) => {
+//           xhr.setRequestHeader(key, headers[key]);
+//         });
+//       }
+
+//       if (timeout) {
+//         xhr.timeout = timeout;
+//       }
+
+//       if (method !== ERequestMethod.GET && data) {
+//         xhr.send(data);
+//       }
+//       if (method === ERequestMethod.GET) {
+//         xhr.send();
+//       }
+//     });
+//   }
+// }
+
+export enum Method {
+  Get = 'Get',
+  Post = 'Post',
+  Put = 'Put',
+  Patch = 'Patch',
+  Delete = 'Delete',
+}
+
+type Options = {
+  method: Method;
+  data?: any;
+};
+
+export default class HTTPTransport {
+  public static API_URL = 'https://ya-praktikum.tech/api/v2';
   protected endpoint: string;
 
   constructor(endpoint: string) {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get: HttpMethod = (url, options = {}) => {
-    return this.request({
-      url: url + queryStringify(options.data),
-      method: ERequestMethod.GET,
-      options,
-    });
-  };
+  public get<Response>(path = '/'): Promise<Response> {
+    return this.request<Response>(this.endpoint + path);
+  }
 
-  public post: HttpMethod = (url, options = {}) => {
-    return this.request({
-      url,
-      method: ERequestMethod.POTS,
-      options,
+  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Method.Post,
+      data,
     });
-  };
+  }
 
-  public put: HttpMethod = (url, options = {}) => {
-    return this.request({
-      url,
-      method: ERequestMethod.PUT,
-      options,
+  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Method.Put,
+      data,
     });
-  };
+  }
 
-  public delete: HttpMethod = (url, options = {}) => {
-    return this.request({
-      url,
-      method: ERequestMethod.DELETE,
-      options,
+  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Method.Patch,
+      data,
     });
-  };
+  }
 
-  private request({
-    url,
-    method,
-    options,
-  }: {
-    url: string;
-    method: ERequestMethod;
-    options: IRequestOptions;
-  }): Promise<XMLHttpRequest> {
+  public delete<Response>(path: string): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: Method.Delete,
+    });
+  }
+
+  private request<Response>(url: string, options: Options = { method: Method.Get }): Promise<Response> {
+    const { method, data } = options;
+
     return new Promise((resolve, reject) => {
-      const { data, headers, timeout } = options;
       const xhr = new XMLHttpRequest();
       xhr.open(method, url);
 
-      xhr.onload = () => {
-        if (xhr.status !== 200) {
-          reject(xhr);
-        } else {
-          resolve(xhr);
+      xhr.onreadystatechange = (e) => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status < 400) {
+            resolve(xhr.response);
+          } else {
+            reject(xhr.response);
+          }
         }
       };
 
-      xhr.onabort = reject;
-      xhr.onerror = reject;
-      xhr.ontimeout = reject;
+      // eslint-disable-next-line prefer-promise-reject-errors
+      xhr.onabort = () => reject({ reason: 'abort' });
+      // eslint-disable-next-line prefer-promise-reject-errors
+      xhr.onerror = () => reject({ reason: 'network error' });
+      // eslint-disable-next-line prefer-promise-reject-errors
+      xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      if (headers) {
-        Object.keys(headers).forEach((key) => {
-          xhr.setRequestHeader(key, headers[key]);
-        });
-      }
+      xhr.setRequestHeader('Content-Type', 'application/json');
 
-      if (timeout) {
-        xhr.timeout = timeout;
-      }
+      xhr.withCredentials = true;
+      xhr.responseType = 'json';
 
-      if (method !== ERequestMethod.GET && data) {
-        xhr.send(data);
-      }
-      if (method === ERequestMethod.GET) {
+      if (method === Method.Get || !data) {
         xhr.send();
+      } else {
+        xhr.send(JSON.stringify(data));
       }
     });
   }

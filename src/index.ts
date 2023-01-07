@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import './styles';
 
 import './helpers.js';
@@ -9,12 +10,42 @@ import { SignUpPage } from './pages/signUpPage/signUpPage';
 import { ChatsPage } from './pages/chatsPage';
 import { ProfilePage } from './pages/profilePage';
 import { ErrorPage } from './pages/errorPage';
+import AuthController from './controllers/authController';
+import { navigate } from './utils';
 
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener('DOMContentLoaded', async () => {
   Router.use(ERoute.Index, SignInPage as unknown as typeof Block)
     .use(ERoute.Register, SignUpPage as unknown as typeof Block)
-    .use(ERoute.Profile, ProfilePage as unknown as typeof Block, { viewMode: EProfilePageViewMode.PROFILE })
+    .use(ERoute.Profile, ProfilePage as unknown as typeof Block, {
+      viewMode: EProfilePageViewMode.PROFILE,
+      isInViewMode: true,
+    })
     .use(ERoute.Error, ErrorPage as unknown as typeof Block, { errorNumber: 505, errorMessage: 'Что-то пошло не так' })
     .use(ERoute.Chats, ChatsPage as unknown as typeof Block)
     .start();
+
+  let isProtectedRoute = true;
+
+  switch (window.location.pathname) {
+    case ERoute.Index:
+    case ERoute.Register:
+      isProtectedRoute = false;
+      break;
+  }
+
+  try {
+    await AuthController.fetchUser();
+
+    Router.start();
+
+    if (!isProtectedRoute) {
+      navigate(ERoute.Profile);
+    }
+  } catch (e) {
+    Router.start();
+
+    if (isProtectedRoute) {
+      navigate(ERoute.Index);
+    }
+  }
 });

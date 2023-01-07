@@ -30,6 +30,7 @@ export class FormInput extends Block<FormInputProps, Input> {
   private containerClass = 'form-input__container';
 
   constructor(props: FormInputProps) {
+    console.log({ inputP: props });
     const isRegular = props.componentType === EInputType.REGULAR;
     const inputClass = isRegular ? 'form-input' : 'row-input__input';
     const invalidInputClass = isRegular ? 'form-input_invalid' : 'row-input__input_invalid';
@@ -42,6 +43,7 @@ export class FormInput extends Block<FormInputProps, Input> {
         placeholder: props.placeholder,
         classNames: [inputClass],
         disabled: props.disabled,
+        value: props.value,
         events: {
           blur: () => {
             this.handleBlur();
@@ -103,12 +105,15 @@ export class FormInput extends Block<FormInputProps, Input> {
     }
 
     if (oldProps.disabled !== newProps.disabled) {
-      console.log({ oldProps, newProps });
       if (newProps.disabled) {
         this.children.input.setProps({ disabled: true });
       } else {
         this.children.input.setProps({ disabled: false });
       }
+    }
+
+    if (oldProps.value !== newProps.value) {
+      this.children.input.setProps({ value: newProps.value });
     }
 
     return true;

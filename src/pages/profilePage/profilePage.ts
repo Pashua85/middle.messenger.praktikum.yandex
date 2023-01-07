@@ -1,23 +1,25 @@
 import { Block } from '../../core';
 import { EPage, EProfilePageViewMode, ERoute } from '../../enums';
-import { ProfileForm } from '../../components/profileForm/profileForm';
+import { ProfileForm, ProfileFormBase } from '../../components/profileForm/profileForm';
 import template from './profilePage.hbs';
 import './profilePage.scss';
 import { PasswordForm } from '../../components/passwordForm';
 import { CustomButton } from '../../components/customButton';
 import { navigate } from '../../utils';
+import { IState, withStore } from '../../store/store';
 
 interface ProfilePageProps {
   classNames: string[];
   // navigate: (page: EPage) => void;
   viewMode: EProfilePageViewMode;
+  isInViewMode: boolean;
 }
 
-export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordForm | CustomButton> {
+export class ProfilePageBase extends Block<ProfilePageProps, ProfileFormBase | PasswordForm | CustomButton> {
   constructor(props: ProfilePageProps) {
     const children = {
       profileForm: new ProfileForm({
-        isInViewMode: true,
+        isInViewMode: props.isInViewMode,
         onOpenPasswordForm: () => this.changeViewMode(EProfilePageViewMode.PASSWORD),
       }),
       passwordForm: new PasswordForm({
@@ -44,3 +46,7 @@ export class ProfilePage extends Block<ProfilePageProps, ProfileForm | PasswordF
     this.setProps({ viewMode: payload });
   }
 }
+
+const mapStateToProps = (state: IState) => ({ name: state.user?.first_name });
+
+export const ProfilePage = withStore(mapStateToProps)(ProfilePageBase);

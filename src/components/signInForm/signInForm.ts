@@ -6,7 +6,9 @@ import { Form } from '../form';
 import { FormInput } from '../formInput';
 import { TextLink } from '../textLink';
 import template from './signInForm.hbs';
+import AuthController from '../../controllers/authController';
 import './signInForm.scss';
+import { ISigninData } from '../../interfaces';
 
 interface SignInFormProps {
   classNames: string[];
@@ -59,10 +61,15 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
     return this.compile(template, {});
   }
 
-  protected handleSubmit(formValues: Record<string, string | number>): void {
+  protected handleSubmit(formValues: Record<string, string>): void {
     console.log({ formValues });
+
+    if (formValues.login && formValues.password) {
+      AuthController.signin({ login: formValues.login, password: formValues.password });
+    }
+
     // this.props.navigate(EPage.CHATS);
-    navigate(ERoute.Chats);
+    // navigate(ERoute.Chats);
   }
 
   private handleLinkClick(e: Event) {

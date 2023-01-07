@@ -11,11 +11,11 @@ export class AuthAPI extends BaseAPI {
   }
 
   public signin(data: ISigninData) {
-    return this.http.post('/signin', { data });
+    return this.http.post('/signin', data);
   }
 
   public signup(data: ISignupData) {
-    return this.http.post('/signup', { data });
+    return this.http.post('/signup', data);
   }
 
   public read() {

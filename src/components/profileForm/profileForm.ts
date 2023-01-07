@@ -1,5 +1,7 @@
 import { EMAIL_RULES, LOGIN_RULES, NAME_RULES, PHONES_RULES } from '../../constants';
 import { EInputType, ERoute } from '../../enums';
+import { IUser } from '../../interfaces';
+import { IState, withStore } from '../../store/store';
 import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
@@ -11,11 +13,11 @@ import './profileForm.scss';
 interface ProfileFormProps {
   classNames?: string[];
   isInViewMode: boolean;
-  // navigate: (page: EPage) => void;
   onOpenPasswordForm: () => void;
+  user?: IUser;
 }
 
-export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton | TextLink, FormInput> {
+export class ProfileFormBase extends Form<ProfileFormProps, FormInput | CustomButton | TextLink, FormInput> {
   constructor(props: ProfileFormProps) {
     const emailInput = new FormInput({
       label: 'Почта',
@@ -25,6 +27,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: EMAIL_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.email,
     });
     const firstNameInput = new FormInput({
       label: 'Имя',
@@ -34,6 +37,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: NAME_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.first_name,
     });
     const secondNameInput = new FormInput({
       label: 'Фамилия',
@@ -43,6 +47,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: NAME_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.second_name,
     });
     const loginInput = new FormInput({
       label: 'Логин',
@@ -52,6 +57,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: LOGIN_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.login,
     });
     const displayNameInput = new FormInput({
       label: 'Имя в чате',
@@ -62,6 +68,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: NAME_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.display_name || '',
     });
     const phoneInput = new FormInput({
       label: 'Телефон',
@@ -71,6 +78,7 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
       rules: PHONES_RULES,
       componentType: EInputType.ROW,
       disabled: props.isInViewMode,
+      value: props.user?.phone,
     });
 
     const children = {
@@ -130,12 +138,14 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
   protected componentDidUpdate(oldProps: ProfileFormProps, newProps: ProfileFormProps): boolean {
     if (oldProps.isInViewMode !== newProps.isInViewMode) {
       if (newProps.isInViewMode) {
-        console.log('enable');
         this.disableForm();
       } else {
-        console.log('disable');
         this.enableForm();
       }
+    }
+
+    if (oldProps.user !== newProps.user) {
+      this.updateValuesFromProps(newProps);
     }
     return true;
   }
@@ -148,4 +158,17 @@ export class ProfileForm extends Form<ProfileFormProps, FormInput | CustomButton
     console.log({ formValues });
     this.setProps({ isInViewMode: true });
   }
+
+  private updateValuesFromProps(props: ProfileFormProps) {
+    this.children.emailInput.setProps({ value: props.user?.email });
+    this.children.firstNameInput.setProps({ value: props.user?.first_name });
+    this.children.secondNameInput.setProps({ value: props.user?.second_name });
+    this.children.loginInput.setProps({ value: props.user?.login });
+    this.children.displayNameInput.setProps({ value: props.user?.display_name || '' });
+    this.children.phoneInput.setProps({ value: props.user?.phone });
+  }
 }
+
+const mapStateToProps = (state: IState) => ({ user: state.user });
+
+export const ProfileForm = withStore(mapStateToProps)(ProfileFormBase);
