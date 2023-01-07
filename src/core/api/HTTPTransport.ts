@@ -3,7 +3,14 @@ import { IRequestOptions } from '../../interfaces';
 import { HttpMethod } from '../../types';
 import { queryStringify } from '../../utils';
 
-export class ApiClient {
+export class HTTPTransport {
+  private static API_URL = 'https://ya-praktikum.tech/api/v2';
+  protected endpoint: string;
+
+  constructor(endpoint: string) {
+    this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
+  }
+
   public get: HttpMethod = (url, options = {}) => {
     return this.request({
       url: url + queryStringify(options.data),
