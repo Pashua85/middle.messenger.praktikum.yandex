@@ -8,7 +8,10 @@ import { Form } from '../form';
 import { FormInput } from '../formInput';
 import { TextLink } from '../textLink';
 import template from './profileForm.hbs';
+import UserController from '../../controllers/userController';
 import './profileForm.scss';
+import { IUserData } from '../../interfaces/userData.interface';
+import AuthController from '../../controllers/authController';
 
 interface ProfileFormProps {
   classNames?: string[];
@@ -119,7 +122,8 @@ export class ProfileFormBase extends Form<ProfileFormProps, FormInput | CustomBu
         events: {
           click: (e: Event) => {
             e.preventDefault();
-            navigate(ERoute.Chats);
+            AuthController.logout();
+            navigate(ERoute.Index);
           },
         },
       }),
@@ -155,7 +159,7 @@ export class ProfileFormBase extends Form<ProfileFormProps, FormInput | CustomBu
   }
 
   protected handleSubmit(formValues: Record<string, string | number>): void {
-    console.log({ formValues });
+    UserController.changeProfile(formValues as unknown as IUserData);
     this.setProps({ isInViewMode: true });
   }
 

@@ -4,6 +4,7 @@ import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
 import template from './passwordForm.hbs';
+import UserController from '../../controllers/userController';
 import './passwordForm.scss';
 
 interface PasswordFormProps {
@@ -63,8 +64,9 @@ export class PasswordForm extends Form<PasswordFormProps, FormInput | CustomButt
     return this.compile(template, { ...this.props });
   }
 
-  protected handleSubmit(formValues: Record<string, string | number>): void {
+  protected handleSubmit(formValues: Record<string, string>): void {
     console.log({ formValues });
-    this.props.returnToProfile();
+    UserController.changePassword({ oldPassword: formValues.old_password, newPassword: formValues.password });
+    // this.props.returnToProfile();
   }
 }

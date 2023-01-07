@@ -113,6 +113,7 @@ export class FormInput extends Block<FormInputProps, Input> {
     }
 
     if (oldProps.value !== newProps.value) {
+      this._value = newProps.value || '';
       this.children.input.setProps({ value: newProps.value });
     }
 
