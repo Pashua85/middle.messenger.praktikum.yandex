@@ -1,4 +1,4 @@
-import API, { AuthAPI } from '../core/api/AuthApi';
+import API, { AuthAPI } from '../core/api/AuthAPI';
 import { ERoute } from '../enums';
 import { ISigninData, ISignupData } from '../interfaces';
 import { navigate } from '../utils';
@@ -29,8 +29,8 @@ export class AuthController {
       await this.fetchUser();
 
       navigate(ERoute.Profile);
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 

@@ -1,5 +1,5 @@
 import { ISigninData, ISignupData } from '../../interfaces';
-import BaseAPI from './BaseApi';
+import BaseAPI from './BaseAPI';
 
 export class AuthAPI extends BaseAPI {
   public create = undefined;

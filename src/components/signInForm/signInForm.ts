@@ -62,14 +62,9 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
   }
 
   protected handleSubmit(formValues: Record<string, string>): void {
-    console.log({ formValues });
-
     if (formValues.login && formValues.password) {
       AuthController.signin({ login: formValues.login, password: formValues.password });
     }
-
-    // this.props.navigate(EPage.CHATS);
-    // navigate(ERoute.Chats);
   }
 
   private handleLinkClick(e: Event) {

@@ -7,6 +7,8 @@ import { FormInput } from '../formInput';
 import { TextLink } from '../textLink';
 import template from './signUpForm.hbs';
 import './signUpForm.scss';
+import AuthController from '../../controllers/authController';
+import { ISignupData } from '../../interfaces';
 
 interface SignUpFormProps {
   classNames: string[];
@@ -117,8 +119,7 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
   }
 
   protected handleSubmit(formValues: Record<string, string | number>): void {
-    console.log({ formValues });
-    navigate(ERoute.Chats);
+    AuthController.signup(formValues as unknown as ISignupData);
   }
 
   private handleLinkClick(e: Event) {
