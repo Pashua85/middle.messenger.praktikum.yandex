@@ -15,7 +15,6 @@ class Router {
   public use(pathname: string, block: typeof Block, blockProps = {}) {
     const route = new Route(pathname, block, blockProps, this.rootQuery);
 
-    console.log({ pathname, route });
     this.routes.push(route);
 
     return this;

@@ -66,13 +66,21 @@ export abstract class Block<
 
     Object.entries(this.children).forEach(([key, component]) => {
       if (!Array.isArray(component)) {
-        contextAndStubs[key] = `<div data-id="${component.id}"></div>`;
+        contextAndStubs[key] = `<div data-id='${component.id}'></div>`;
+        console.log({ contextAndStubs1: contextAndStubs });
       } else {
-        contextAndStubs[key] = `<div data-id="${component[0].id}"></div>`;
+        console.log({ childComponent: component });
+        contextAndStubs[key] = `<div data-id='${component[0].id}'></div>`;
+
+        console.log({ contextAndStubs });
       }
     });
 
     const html = template(contextAndStubs);
+
+    if (this.children.chatsListItems) {
+      console.log({ html });
+    }
 
     const temp = document.createElement('template');
 
@@ -82,6 +90,10 @@ export abstract class Block<
       const stub = Array.isArray(component)
         ? temp.content.querySelector(`[data-id='${component[0].id}']`)
         : temp.content.querySelector(`[data-id='${component.id}']`);
+
+      if (Array.isArray(component)) {
+        console.log({ stub });
+      }
 
       if (!stub) {
         return;
@@ -97,6 +109,8 @@ export abstract class Block<
         for (const item of component) {
           content.append(item.getContent());
         }
+
+        console.log({ content });
       }
 
       if (content) {

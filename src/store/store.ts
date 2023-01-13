@@ -1,5 +1,5 @@
 import { Block, EventBus } from '../core';
-import { IMessage, IUser } from '../interfaces';
+import { IChatInfo, IMessage, IUser } from '../interfaces';
 import { AnyType, BlockInterface, SimpleObject } from '../types';
 import { set } from '../utils';
 import { WithRouterBlock } from '../types';
@@ -8,7 +8,7 @@ import { ProfilePageBase } from '../pages/profilePage';
 
 export interface IState {
   user: IUser;
-  // chats: ChatInfo[];
+  chats: IChatInfo[];
   messages: Record<number, IMessage[]>;
   // selectedChat?: number;
 }

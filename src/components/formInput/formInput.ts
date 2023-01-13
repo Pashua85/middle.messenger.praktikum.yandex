@@ -30,7 +30,6 @@ export class FormInput extends Block<FormInputProps, Input> {
   private containerClass = 'form-input__container';
 
   constructor(props: FormInputProps) {
-    console.log({ inputP: props });
     const isRegular = props.componentType === EInputType.REGULAR;
     const inputClass = isRegular ? 'form-input' : 'row-input__input';
     const invalidInputClass = isRegular ? 'form-input_invalid' : 'row-input__input_invalid';
