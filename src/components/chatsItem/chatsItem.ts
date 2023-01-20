@@ -4,6 +4,7 @@ import './chatsItem.scss';
 
 interface ChatsItemProps {
   classNames?: string[];
+  events?: Record<string, (event: Event | FocusEvent) => void>;
   title: string;
 }
 

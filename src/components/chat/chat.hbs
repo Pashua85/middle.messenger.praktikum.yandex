@@ -7,6 +7,7 @@
     {{{contextMenu}}}
   </div>
 </header>
+{{#if selectedChat }}
 <main class="chat__main">
   <div class="chat__date">3 ноября</div>
   <div class="chat-message">
@@ -21,3 +22,25 @@
 <div class="chat__messageForm">
   {{{messageForm}}}
 </div>
+{{else}}
+  <main class="chat__main">
+    <div>Выберите чат</div>
+  </main>
+
+{{/if}}
+
+
+{{!-- <main class="chat__main">
+  <div class="chat__date">3 ноября</div>
+  <div class="chat-message">
+    <p class="chat-message__text">А когда эти сообщения будут выводиться динамически?</p>
+    <div class="chat-message__time">11:45</div>
+  </div>
+  <div class="chat-message chat-message_own chat-message_delivered">
+    <p class="chat-message__text">В следующем спринте доработаю</p>
+    <div class="chat-message__time">12:03</div>
+  </div>
+</main>
+<div class="chat__messageForm">
+  {{{messageForm}}}
+</div> --}}

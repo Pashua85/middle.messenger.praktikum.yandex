@@ -10,7 +10,7 @@ export interface IState {
   user: IUser;
   chats: IChatInfo[];
   messages: Record<number, IMessage[]>;
-  // selectedChat?: number;
+  selectedChat?: number;
 }
 
 export class Store extends EventBus {

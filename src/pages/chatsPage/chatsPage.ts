@@ -15,7 +15,7 @@ interface ChatsPageProps {
   // navigate: (page: EPage) => void;
 }
 
-export class ChatsPageBase extends Block<ChatsPageProps, Chat | TextLink | typeof ChatList> {
+export class ChatsPageBase extends Block<ChatsPageProps, typeof Chat | TextLink | typeof ChatList> {
   constructor(props: ChatsPageProps) {
     const children = {
       chat: new Chat({ classNames: ['chat'], title: 'Виктор' }),

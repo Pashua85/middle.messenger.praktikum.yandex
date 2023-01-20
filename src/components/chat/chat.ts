@@ -5,13 +5,18 @@ import { ContextMenu } from '../contextMenu';
 import { EContextMenu } from '../../enums';
 import { MenuOption } from '../menuOption';
 import { MessageForm } from '../messageForm';
+import { IState, withStore } from '../../store/store';
+import { IMessage } from '../../interfaces';
 
 interface ChatProps {
   classNames: string[];
   title: string;
+  selectedChat?: number;
+  messages: IMessage[];
+  userId: number;
 }
 
-export class Chat extends Block<ChatProps, ContextMenu | MessageForm> {
+export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm> {
   constructor(props: ChatProps) {
     const children = {
       contextMenu: new ContextMenu(
@@ -40,4 +45,19 @@ export class Chat extends Block<ChatProps, ContextMenu | MessageForm> {
   protected render(): DocumentFragment {
     return this.compile(template, { ...this.props });
   }
+
+  protected componentDidUpdate(oldProps: ChatProps, newProps: ChatProps): boolean {
+    console.log({ oldPropsChat: oldProps, newPropsChat: newProps });
+
+    return true;
+  }
 }
+
+const mapStateToProps = (state: IState) => {
+  console.log({ state });
+  return {
+    selectedChat: state.selectedChat,
+  };
+};
+
+export const Chat = withStore(mapStateToProps)(ChatBase);

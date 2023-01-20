@@ -22,12 +22,29 @@ export class ChatListBase extends Block<ChatListProps, ChatsItem[]> {
   }
 
   protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
-    // this.children.chats = this.createChats(newProps);
+    console.log({ oldPropsList: oldProps, newPropsList: newProps });
 
     if (oldProps?.chats?.length !== newProps?.chats?.length && newProps.chats) {
-      const chatListItems = newProps.chats.map((item) => new ChatsItem({ title: item.title }));
+      console.log('add new children');
+      const chatListItems = newProps.chats.map(
+        (item) =>
+          new ChatsItem({
+            title: item.title,
+            events: {
+              click: () => {
+                ChatsController.selectChat(item.id);
+              },
+            },
+          }),
+      );
 
       this.addChildren({ chatListItems });
+
+      return true;
+    }
+
+    if (oldProps?.chats?.length === newProps?.chats?.length && oldProps.isLoaded) {
+      return false;
     }
 
     return true;

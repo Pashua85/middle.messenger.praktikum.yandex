@@ -198,7 +198,6 @@ export abstract class Block<
   }
 
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
-    console.log({ oldProps, newProps });
     const newClassNames = (newProps as TProps)?.classNames;
     const oldClassNames = (oldProps as TProps)?.classNames;
 
