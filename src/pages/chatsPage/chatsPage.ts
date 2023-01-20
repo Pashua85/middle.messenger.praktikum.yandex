@@ -15,7 +15,7 @@ interface ChatsPageProps {
   // navigate: (page: EPage) => void;
 }
 
-export class ChatsPageBase extends Block<ChatsPageProps, Chat | TextLink | ChatList> {
+export class ChatsPageBase extends Block<ChatsPageProps, Chat | TextLink | typeof ChatList> {
   constructor(props: ChatsPageProps) {
     const children = {
       chat: new Chat({ classNames: ['chat'], title: 'Виктор' }),
@@ -41,9 +41,13 @@ export class ChatsPageBase extends Block<ChatsPageProps, Chat | TextLink | ChatL
     // this.children.messenger = new Messenger({});
 
     ChatsController.fetchChats().finally(() => {
-      // (this.children.chatsList as Block).setProps({
-      //   isLoaded: true
-      // })
+      (this.children.chatList as Block).setProps({
+        isLoaded: true,
+      });
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      // console.log({ propsPage: this.props.chats });
     });
   }
 

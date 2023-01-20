@@ -4,6 +4,7 @@ import './chatsItem.scss';
 
 interface ChatsItemProps {
   classNames?: string[];
+  title: string;
 }
 
 export class ChatsItem extends Block<ChatsItemProps, never> {
@@ -12,6 +13,6 @@ export class ChatsItem extends Block<ChatsItemProps, never> {
   }
 
   protected render(): DocumentFragment {
-    return this.compile(template, {});
+    return this.compile(template, { ...this.props });
   }
 }

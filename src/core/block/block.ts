@@ -67,20 +67,12 @@ export abstract class Block<
     Object.entries(this.children).forEach(([key, component]) => {
       if (!Array.isArray(component)) {
         contextAndStubs[key] = `<div data-id='${component.id}'></div>`;
-        console.log({ contextAndStubs1: contextAndStubs });
       } else {
-        console.log({ childComponent: component });
         contextAndStubs[key] = `<div data-id='${component[0].id}'></div>`;
-
-        console.log({ contextAndStubs });
       }
     });
 
     const html = template(contextAndStubs);
-
-    if (this.children.chatsListItems) {
-      console.log({ html });
-    }
 
     const temp = document.createElement('template');
 
@@ -90,10 +82,6 @@ export abstract class Block<
       const stub = Array.isArray(component)
         ? temp.content.querySelector(`[data-id='${component[0].id}']`)
         : temp.content.querySelector(`[data-id='${component.id}']`);
-
-      if (Array.isArray(component)) {
-        console.log({ stub });
-      }
 
       if (!stub) {
         return;
@@ -130,11 +118,8 @@ export abstract class Block<
   }
 
   protected addChildren(children: BlockChildren<TChildren>) {
-    Object.entries(children).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      }
-    });
+    this.children = children;
+
     this.eventBus().emit(Block.EVENTS.FLOW_CDU);
   }
 
@@ -213,8 +198,9 @@ export abstract class Block<
   }
 
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
-    const newClassNames = (newProps as TProps).classNames;
-    const oldClassNames = (oldProps as TProps).classNames;
+    console.log({ oldProps, newProps });
+    const newClassNames = (newProps as TProps)?.classNames;
+    const oldClassNames = (oldProps as TProps)?.classNames;
 
     if (Array.isArray(newClassNames) && newClassNames !== oldClassNames) {
       if (Array.isArray(oldClassNames)) {
