@@ -22,10 +22,10 @@ export class ChatListBase extends Block<ChatListProps, ChatsItem[]> {
   }
 
   protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
-    console.log({ oldPropsList: oldProps, newPropsList: newProps });
+    // console.log({ oldPropsList: oldProps, newPropsList: newProps });
 
     if (oldProps?.chats?.length !== newProps?.chats?.length && newProps.chats) {
-      console.log('add new children');
+      // console.log('add new children');
       const chatListItems = newProps.chats.map(
         (item) =>
           new ChatsItem({
@@ -43,7 +43,7 @@ export class ChatListBase extends Block<ChatListProps, ChatsItem[]> {
       return true;
     }
 
-    if (oldProps?.chats?.length === newProps?.chats?.length && oldProps.isLoaded) {
+    if (oldProps?.chats?.length === newProps?.chats?.length && oldProps?.isLoaded) {
       return false;
     }
 
@@ -51,7 +51,7 @@ export class ChatListBase extends Block<ChatListProps, ChatsItem[]> {
   }
 
   protected render(): DocumentFragment {
-    console.log('render list', { children: this.children });
+    // console.log('render list', { children: this.children });
     return this.compile(template, { ...this.props });
   }
 

@@ -15,6 +15,12 @@
     width: 100%;
     align-self: center;
     overflow-y: auto;
+
+    &_empty {
+      justify-content: center;
+      align-items: center;
+      color: $grey;
+    }
   }
 
   &__date {

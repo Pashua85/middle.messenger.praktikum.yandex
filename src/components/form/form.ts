@@ -30,11 +30,11 @@ export abstract class Form<
   protected handleSubmit(_formValues: Record<string, string>): void {}
 
   protected enableForm(): void {
-    this.fields.forEach((item) => item.setProps({ disabled: false }));
+    this.fields.forEach((item) => (item as Block).setProps({ disabled: false }));
   }
 
   protected disableForm(): void {
-    this.fields.forEach((item) => item.setProps({ disabled: true }));
+    this.fields.forEach((item) => (item as Block).setProps({ disabled: true }));
   }
 
   private _handleSubmit(): void {
@@ -57,7 +57,7 @@ export abstract class Form<
     const result: Record<string, string> = {};
 
     this.fields.forEach((item) => {
-      result[item.props.name] = String(item.value);
+      result[(item as Block).props.name] = String(item.value);
     });
 
     return result;

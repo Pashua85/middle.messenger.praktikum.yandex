@@ -27,7 +27,7 @@ export abstract class Block<
 
   private _element: HTMLElement | null = null;
 
-  constructor(tagName = 'div', props: TProps, children: BlockChildren<TChildren> = {}) {
+  constructor(tagName: string, props: TProps, children: BlockChildren<TChildren> = {}) {
     const eventBus = new EventBus();
 
     this._meta = {
@@ -68,7 +68,7 @@ export abstract class Block<
       if (!Array.isArray(component)) {
         contextAndStubs[key] = `<div data-id='${component.id}'></div>`;
       } else {
-        contextAndStubs[key] = `<div data-id='${component[0].id}'></div>`;
+        contextAndStubs[key] = `<div data-id='${component[0]?.id}'></div>`;
       }
     });
 
@@ -80,7 +80,7 @@ export abstract class Block<
 
     Object.values(this.children).forEach((component) => {
       const stub = Array.isArray(component)
-        ? temp.content.querySelector(`[data-id='${component[0].id}']`)
+        ? temp.content.querySelector(`[data-id='${component[0]?.id}']`)
         : temp.content.querySelector(`[data-id='${component.id}']`);
 
       if (!stub) {
@@ -97,8 +97,6 @@ export abstract class Block<
         for (const item of component) {
           content.append(item.getContent());
         }
-
-        console.log({ content });
       }
 
       if (content) {
