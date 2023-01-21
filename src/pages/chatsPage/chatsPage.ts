@@ -12,19 +12,19 @@ import { ChatList } from '../../components/chatList';
 
 interface ChatsPageProps {
   classNames: string[];
-  // navigate: (page: EPage) => void;
 }
 
 export class ChatsPageBase extends Block<ChatsPageProps, typeof Chat | TextLink | typeof ChatList> {
   constructor(props: ChatsPageProps) {
     const children = {
-      chat: new Chat({ classNames: ['chat'], title: 'Виктор' }),
+      chat: new Chat({ classNames: ['chat'] }),
       profileLink: new TextLink({
         classNames: ['sidebar__link'],
         text: 'Профиль',
         events: {
           click: (e: Event) => {
             e.preventDefault();
+            ChatsController.resetSelectChat();
             navigate(ERoute.Profile);
           },
         },
@@ -36,18 +36,10 @@ export class ChatsPageBase extends Block<ChatsPageProps, typeof Chat | TextLink 
   }
 
   protected init() {
-    // this.children.chatsList = new ChatsList({ isLoaded: false });
-
-    // this.children.messenger = new Messenger({});
-
     ChatsController.fetchChats().finally(() => {
       (this.children.chatList as Block).setProps({
         isLoaded: true,
       });
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      // console.log({ propsPage: this.props.chats });
     });
   }
 

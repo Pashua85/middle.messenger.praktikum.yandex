@@ -175,4 +175,4 @@ export class ProfileFormBase extends Form<ProfileFormProps, FormInput | CustomBu
 
 const mapStateToProps = (state: IState) => ({ user: state.user });
 
-export const ProfileForm = withStore(mapStateToProps)(ProfileFormBase);
+export const ProfileForm = withStore(mapStateToProps)(ProfileFormBase) as ProfileFormBase;

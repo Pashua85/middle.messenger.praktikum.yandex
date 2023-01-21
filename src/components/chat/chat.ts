@@ -11,7 +11,7 @@ import { ChatDateBlock } from '../chatDateBlock';
 
 interface ChatProps {
   classNames: string[];
-  title: string;
+  title?: string;
   selectedChat?: number;
   messages: IMessage[];
   userId: number;
@@ -52,7 +52,10 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       (oldProps?.selectedChat !== newProps?.selectedChat && newProps.messages) ||
       oldProps?.messages?.length !== newProps?.messages?.length
     ) {
-      this.addChildren({ chatDateBlocks: this.formDateBlocks(newProps.messages) });
+      this.setChildren({
+        ...this.children,
+        chatDateBlocks: this.formDateBlocks(newProps.messages),
+      });
     }
 
     return true;
@@ -84,11 +87,14 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       blocksToCreate[dateStringWithYear].messages.push(item);
     });
 
-    return Object.values(blocksToCreate).map((item) => new ChatDateBlock({ date: item.date, messages: item.messages }));
+    return Object.values(blocksToCreate).map(
+      (item) => new ChatDateBlock({ date: item.date, messages: item.messages, userId: this.props.userId }),
+    );
   }
 }
 
 const mapStateToProps = (state: IState) => {
+  console.log({ state });
   if (!state.selectedChat) {
     return {
       selectedChat: state.selectedChat,

@@ -18,13 +18,35 @@ class ChatsController {
   public async fetchChats() {
     const chats = await this.api.read();
 
-    chats.map(async (chat) => {
-      const token = await this.getToken(chat.id);
+    const chatsWithUsers = await Promise.all(
+      chats.map(async (chat) => {
+        const token = await this.getToken(chat.id);
 
-      await MessagesController.connect(chat.id, token);
-    });
+        const users = await this.api.getUsers(chat.id);
 
-    store.set('chats', chats);
+        await MessagesController.connect(chat.id, token);
+
+        return {
+          ...chat,
+          users,
+        };
+      }),
+    );
+
+    // const chatsWithUsers = chats.map(async (chat) => {
+    //   const token = await this.getToken(chat.id);
+
+    //   const users = await this.api.getUsers(chat.id);
+
+    //   await MessagesController.connect(chat.id, token);
+
+    //   return {
+    //     ...chat,
+    //     users,
+    //   };
+    // });
+
+    store.set('chats', chatsWithUsers);
   }
 
   public addUserToChat(id: number, userId: number) {
@@ -43,6 +65,10 @@ class ChatsController {
 
   public selectChat(id: number) {
     store.set('selectedChat', id);
+  }
+
+  public resetSelectChat() {
+    store.set('selectedChat', undefined);
   }
 }
 

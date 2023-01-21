@@ -115,7 +115,7 @@ export abstract class Block<
     return new DocumentFragment();
   }
 
-  protected addChildren(children: BlockChildren<TChildren>) {
+  protected setChildren(children: BlockChildren<TChildren>) {
     this.children = children;
 
     this.eventBus().emit(Block.EVENTS.FLOW_CDU);

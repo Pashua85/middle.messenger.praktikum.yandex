@@ -6,3 +6,4 @@ export * from './formInputRules';
 export * from './httpMethod';
 export * from './indexed';
 export * from './withRouterBlock';
+export * from './chatWihUsers';
