@@ -1,4 +1,4 @@
-import WSTransport, { WSTransportEvents } from '../core/api/VSTransport';
+import WSTransport, { WSTransportEvents } from '../core/api/WSTransport';
 import { IMessage } from '../interfaces';
 import store from '../store/store';
 
@@ -49,7 +49,7 @@ class MessagesController {
     Array.from(this.sockets.values()).forEach((socket) => socket.close());
   }
 
-  private onMessage(id: number, messages: IMessage | IMessage[]) {
+  private onMessage(id: number, messages: IMessage[]) {
     let messagesToAdd: IMessage[] = [];
 
     if (Array.isArray(messages)) {
@@ -70,15 +70,11 @@ class MessagesController {
   }
 
   private subscribe(transport: WSTransport, id: number) {
-    transport.on(WSTransportEvents.Message, (message) => this.onMessage(id, message as IMessage | IMessage[]));
+    transport.on(WSTransportEvents.Message, (message) => this.onMessage(id, message as IMessage[]));
     transport.on(WSTransportEvents.Close, () => this.onClose(id));
   }
 }
 
 const controller = new MessagesController();
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-window.messagesController = controller;
 
 export default controller;

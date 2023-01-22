@@ -33,19 +33,6 @@ class ChatsController {
       }),
     );
 
-    // const chatsWithUsers = chats.map(async (chat) => {
-    //   const token = await this.getToken(chat.id);
-
-    //   const users = await this.api.getUsers(chat.id);
-
-    //   await MessagesController.connect(chat.id, token);
-
-    //   return {
-    //     ...chat,
-    //     users,
-    //   };
-    // });
-
     store.set('chats', chatsWithUsers);
   }
 
@@ -73,9 +60,5 @@ class ChatsController {
 }
 
 const controller = new ChatsController();
-
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-window.chatsController = controller;
 
 export default controller;

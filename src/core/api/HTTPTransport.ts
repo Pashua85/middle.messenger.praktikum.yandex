@@ -1,16 +1,8 @@
-import { AnyType } from '../../types';
-
-export enum Method {
-  Get = 'Get',
-  Post = 'Post',
-  Put = 'Put',
-  Patch = 'Patch',
-  Delete = 'Delete',
-}
+type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 type Options = {
   method: Method;
-  data?: AnyType;
+  data?: unknown;
 };
 
 export default class HTTPTransport {
@@ -27,33 +19,33 @@ export default class HTTPTransport {
 
   public post<Response = void>(path: string, data?: unknown): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Post,
+      method: 'POST',
       data,
     });
   }
 
   public put<Response = void>(path: string, data: unknown): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Put,
+      method: 'PUT',
       data,
     });
   }
 
   public patch<Response = void>(path: string, data: unknown): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Patch,
+      method: 'PATCH',
       data,
     });
   }
 
   public delete<Response>(path: string, data?: unknown): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Delete,
+      method: 'DELETE',
       data,
     });
   }
 
-  private request<Response>(url: string, options: Options = { method: Method.Get }): Promise<Response> {
+  private request<Response>(url: string, options: Options = { method: 'GET' }): Promise<Response> {
     const { method, data } = options;
 
     return new Promise((resolve, reject) => {
@@ -82,7 +74,7 @@ export default class HTTPTransport {
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
-      if (method === Method.Get || !data) {
+      if (method === 'GET' || !data) {
         xhr.send();
       } else {
         xhr.send(JSON.stringify(data));
