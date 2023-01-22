@@ -166,7 +166,12 @@ export default class HTTPTransport {
       // eslint-disable-next-line prefer-promise-reject-errors
       xhr.ontimeout = () => reject({ reason: 'timeout' });
 
-      xhr.setRequestHeader('Content-Type', 'application/json');
+      if (options.method !== 'Put') {
+        xhr.setRequestHeader('Content-Type', 'application/json');
+      } else {
+        console.log({ options });
+        xhr.setRequestHeader('Content-Type', 'multipart/form-data');
+      }
 
       xhr.withCredentials = true;
       xhr.responseType = 'json';
@@ -174,7 +179,11 @@ export default class HTTPTransport {
       if (method === Method.Get || !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        if (options.method === 'Put') {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
       }
     });
   }

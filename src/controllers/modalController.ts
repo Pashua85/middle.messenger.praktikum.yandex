@@ -1,4 +1,5 @@
 import { Modal } from '../components/modal';
+import { Block } from '../core';
 
 export class ModalController {
   private appElement: Element | null = null;
@@ -12,10 +13,11 @@ export class ModalController {
     });
   }
 
-  public open() {
+  public open(component: Block) {
     this.close();
 
     this.modal = new Modal({});
+    this.modal.setContent(component);
 
     const content = this.modal.getContent();
 

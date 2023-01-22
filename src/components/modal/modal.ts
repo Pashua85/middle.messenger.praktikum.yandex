@@ -20,6 +20,10 @@ export class Modal extends Block<ModalProps, BlockInterface<SimpleObject>> {
     });
   }
 
+  public setContent(component: Block) {
+    this.setChildren({ content: component });
+  }
+
   protected render(): DocumentFragment {
     return this.compile(template, { ...this.props });
   }

@@ -10,6 +10,8 @@ import { IState, withStore } from '../../store/store';
 import { RESOURCES } from '../../constants';
 import { Avatar } from '../../components/avatar';
 import ModalController from '../../controllers/modalController';
+import UserController from '../../controllers/userController';
+import { FileForm } from '../../components/fileForm/fileForm';
 
 interface ProfilePageProps {
   classNames: string[];
@@ -68,7 +70,18 @@ export class ProfilePageBase extends Block<
   }
 
   private openAvatarModal(): void {
-    ModalController.open();
+    ModalController.open(
+      new FileForm({
+        onSubmit: (data: FormData) => {
+          this.changeAvatar(data);
+        },
+      }),
+    );
+  }
+
+  private async changeAvatar(data: FormData) {
+    console.log({ data });
+    await UserController.changeAvatar(data);
   }
 }
 
