@@ -1,7 +1,7 @@
 import { ISigninData, ISignupData } from '../../interfaces';
 import BaseAPI from './BaseAPI';
 
-export class AuthAPI extends BaseAPI {
+export class AuthAPIBase extends BaseAPI {
   public create = undefined;
   public update = undefined;
   public delete = undefined;
@@ -27,4 +27,4 @@ export class AuthAPI extends BaseAPI {
   }
 }
 
-export default new AuthAPI();
+export const AuthAPI = new AuthAPIBase();
