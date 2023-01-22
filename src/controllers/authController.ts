@@ -1,5 +1,5 @@
-import API, { AuthAPI } from '../core/api/AuthAPI';
 import { ERoute } from '../enums';
+import API, { AuthAPI } from '../core/api/AuthAPI';
 import { ISigninData, ISignupData } from '../interfaces';
 import { navigate } from '../utils';
 import store from '../store/store';
