@@ -1,12 +1,12 @@
-import API, { UserAPI } from '../core/api/UserAPI';
+import { UserAPI, UserAPIBase } from '../core/api/UserAPI';
 import { IPasswordData, IUserData } from '../interfaces';
 import store from '../store/store';
 
 export class UserController {
-  private readonly api: UserAPI;
+  private readonly api: UserAPIBase;
 
   constructor() {
-    this.api = API;
+    this.api = UserAPI;
   }
 
   public async changeProfile(data: IUserData) {
