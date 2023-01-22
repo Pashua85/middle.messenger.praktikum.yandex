@@ -1,5 +1,5 @@
 import { IChatInfo, IUser } from '../../interfaces';
-import BaseAPI from './BaseAPI';
+import BaseAPI from './BaseApi';
 
 export class ChatsAPI extends BaseAPI {
   public update = undefined;
