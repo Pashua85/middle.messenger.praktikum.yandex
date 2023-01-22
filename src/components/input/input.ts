@@ -8,6 +8,7 @@ interface InputProps {
   name: string;
   placeholder?: string;
   disabled?: boolean;
+  value?: string;
 }
 
 export class Input extends Block<InputProps, never> {
@@ -29,6 +30,10 @@ export class Input extends Block<InputProps, never> {
         this.element.removeAttribute('disabled');
       }
     }
+
+    if (oldProps.value !== newProps.value) {
+      this.element?.setAttribute('value', newProps.value || '');
+    }
     return true;
   }
 
@@ -36,6 +41,7 @@ export class Input extends Block<InputProps, never> {
     if (this.element) {
       this.element.setAttribute('type', this.props.type);
       this.element.setAttribute('name', this.props.name);
+      this.element.setAttribute('value', this.props.value || '');
       this.element.setAttribute('placeholder', this.props.placeholder || '');
       if (this.props.disabled) {
         this.element.setAttribute('disabled', 'true');

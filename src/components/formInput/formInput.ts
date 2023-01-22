@@ -42,6 +42,7 @@ export class FormInput extends Block<FormInputProps, Input> {
         placeholder: props.placeholder,
         classNames: [inputClass],
         disabled: props.disabled,
+        value: props.value,
         events: {
           blur: () => {
             this.handleBlur();
@@ -103,12 +104,16 @@ export class FormInput extends Block<FormInputProps, Input> {
     }
 
     if (oldProps.disabled !== newProps.disabled) {
-      console.log({ oldProps, newProps });
       if (newProps.disabled) {
         this.children.input.setProps({ disabled: true });
       } else {
         this.children.input.setProps({ disabled: false });
       }
+    }
+
+    if (oldProps.value !== newProps.value) {
+      this._value = newProps.value || '';
+      this.children.input.setProps({ value: newProps.value });
     }
 
     return true;

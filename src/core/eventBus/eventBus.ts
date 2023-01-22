@@ -21,10 +21,10 @@ export class EventBus {
 
   public emit(event: string, ...args: unknown[]) {
     if (!this.listeners[event]) {
-      throw new Error(`Нет события: ${event}`);
+      // throw new Error(`Нет события: ${event}`);
     }
 
-    this.listeners[event].forEach(function (listener) {
+    this.listeners[event]?.forEach(function (listener) {
       // TODO решить ошибку с рест оператором
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore

@@ -1,0 +1,11 @@
+@import '../../variables.scss';
+
+.file-form {
+  width: 340px;
+  padding: 30px;
+  background-color: $white;
+
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
