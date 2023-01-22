@@ -1,6 +1,6 @@
-// TODO убрать any
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export function queryStringify(data: any) {
+import { AnyType } from '../types';
+
+export function queryStringify(data: AnyType) {
   if (!data) return '';
   const queryParams = Object.keys(data).map((item) => `${item}=${data[item]}`);
   return `?${queryParams.join('&')}`;
