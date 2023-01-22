@@ -10,7 +10,7 @@ import { TextLink } from '../textLink';
 import template from './profileForm.hbs';
 import UserController from '../../controllers/userController';
 import './profileForm.scss';
-import { IUserData } from '../../interfaces/userData.interface';
+import { IUserData } from '../../interfaces/IUserData';
 import AuthController from '../../controllers/authController';
 
 interface ProfileFormProps {

@@ -18,7 +18,7 @@ export class AuthController {
 
       navigate(ERoute.Profile);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
@@ -30,7 +30,7 @@ export class AuthController {
 
       navigate(ERoute.Profile);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
@@ -40,7 +40,7 @@ export class AuthController {
 
       navigate(ERoute.Index);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 

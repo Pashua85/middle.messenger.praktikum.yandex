@@ -62,10 +62,8 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
   }
 
   private formDateBlocks(messages: IMessage[]): ChatDateBlock[] {
-    const blocksToCreate: Record<string, { date: string; messages: IMessage[] }> = {};
-
-    messages.forEach((item) => {
-      const dateObject = new Date(item.time);
+    const blocksToCreate = messages.reduce((acc, message) => {
+      const dateObject = new Date(message.time);
       const dateStringWithYear = dateObject.toLocaleDateString('ru-RU', {
         month: 'long',
         day: 'numeric',
@@ -76,16 +74,18 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
         day: 'numeric',
       });
 
-      if (!blocksToCreate[dateStringWithYear]) {
-        blocksToCreate[dateStringWithYear] = {
+      if (!acc[dateStringWithYear]) {
+        acc[dateStringWithYear] = {
           date: dateString,
-          messages: [item],
+          messages: [message],
         };
-        return;
+        return acc;
       }
 
-      blocksToCreate[dateStringWithYear].messages.push(item);
-    });
+      acc[dateStringWithYear].messages.push(message);
+
+      return acc;
+    }, {} as Record<string, { date: string; messages: IMessage[] }>);
 
     return Object.values(blocksToCreate).map(
       (item) => new ChatDateBlock({ date: item.date, messages: item.messages, userId: this.props.userId }),

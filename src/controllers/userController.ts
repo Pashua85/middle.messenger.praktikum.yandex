@@ -15,7 +15,7 @@ export class UserController {
 
       store.set('user', user);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
@@ -23,7 +23,7 @@ export class UserController {
     try {
       await this.api.changePassword(data);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
@@ -31,7 +31,7 @@ export class UserController {
     try {
       await this.api.changeAvatar(data);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 }
