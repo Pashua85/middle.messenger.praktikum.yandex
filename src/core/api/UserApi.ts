@@ -1,5 +1,5 @@
 import { IPasswordData, IUser, IUserData } from '../../interfaces';
-import BaseAPI from './BaseAPI';
+import BaseAPI from './BaseApi';
 
 export class UserAPIBase extends BaseAPI {
   public create = undefined;
