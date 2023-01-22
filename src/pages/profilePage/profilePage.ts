@@ -7,15 +7,20 @@ import { PasswordForm } from '../../components/passwordForm';
 import { CustomButton } from '../../components/customButton';
 import { navigate } from '../../utils';
 import { IState, withStore } from '../../store/store';
+import { RESOURCES } from '../../constants';
+import { Avatar } from '../../components/avatar';
 
 interface ProfilePageProps {
   classNames: string[];
-  // navigate: (page: EPage) => void;
   viewMode: EProfilePageViewMode;
   isInViewMode: boolean;
+  avatar?: string;
 }
 
-export class ProfilePageBase extends Block<ProfilePageProps, ProfileFormBase | PasswordForm | CustomButton> {
+export class ProfilePageBase extends Block<
+  ProfilePageProps,
+  typeof ProfileForm | PasswordForm | CustomButton | Avatar
+> {
   constructor(props: ProfilePageProps) {
     const children = {
       profileForm: new ProfileForm({
@@ -33,9 +38,32 @@ export class ProfilePageBase extends Block<ProfilePageProps, ProfileFormBase | P
         },
         type: 'submit',
       }),
+      avatar: new Avatar({
+        classNames: ['profile__avatar'],
+        avatar: props.avatar,
+        events: {
+          click: () => this.openAvatarModal(),
+        },
+      }),
     };
 
     super('div', { ...props, classNames: ['profile'] }, children);
+  }
+
+  protected init() {
+    // this.setProps({
+    //   events: {
+    //     click: (e: PointerEvent) => console.log({ target: e.target }),
+    //   },
+    // });
+  }
+
+  protected componentDidUpdate(oldProps: ProfilePageProps, newProps: ProfilePageProps): boolean {
+    if (oldProps?.avatar !== newProps?.avatar) {
+      this.children.avatar.setProps({ avatar: newProps.avatar });
+    }
+
+    return true;
   }
 
   protected render(): DocumentFragment {
@@ -45,8 +73,16 @@ export class ProfilePageBase extends Block<ProfilePageProps, ProfileFormBase | P
   private changeViewMode(payload: EProfilePageViewMode): void {
     this.setProps({ viewMode: payload });
   }
+
+  private openAvatarModal(): void {
+    console.log('open avatar modal');
+  }
 }
 
-const mapStateToProps = (state: IState) => ({ name: state.user?.first_name });
+const mapStateToProps = (state: IState) => ({
+  name: state.user?.first_name,
+  avatar: state.user?.avatar ? `${RESOURCES}/${state.user?.avatar}` : undefined,
+  avatarText: state.user?.avatar ? 'Поменять аватар' : 'Pfvtyb',
+});
 
 export const ProfilePage = withStore(mapStateToProps)(ProfilePageBase);

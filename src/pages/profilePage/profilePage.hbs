@@ -4,9 +4,15 @@
     {{#if isInViewMode}}class="profile__photo-container"{{/if}}
     {{#unless isInViewMode}}class="profile__photo-container profile__photo-container_editing"{{/unless}}
   >
-    <a href="#" class="profile__photo-link">
-      <div class="profile__photo-placeholder"></div>
-    </a>
+    {{!-- <a href="#" class="profile__photo-link"> --}}
+    {{!-- <div class="profile__avatar-container">
+      {{#if avatar}}
+        <img class="profile__avatar" src={{avatar}} width="130" height="130"  alt={{title}}/>
+      {{/if}}
+    </div> --}}
+    {{{avatar}}}
+
+    {{!-- </a> --}}
   </div>
   {{#if isInViewMode}}
     <div class="profile__name">{{name}}</div>

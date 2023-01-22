@@ -1,10 +1,8 @@
-import { Block, EventBus } from '../core';
-import { IChatInfo, IMessage, IUser } from '../interfaces';
-import { AnyType, BlockInterface, ChatWithUsers, SimpleObject } from '../types';
+import { EventBus } from '../core';
+import { IMessage, IUser } from '../interfaces';
+import { AnyType, ChatWithUsers, SimpleObject } from '../types';
 import { set } from '../utils';
-import { WithRouterBlock } from '../types';
 import { EStoreEvent } from '../enums';
-import { ProfilePageBase } from '../pages/profilePage';
 
 export interface IState {
   user: IUser;
