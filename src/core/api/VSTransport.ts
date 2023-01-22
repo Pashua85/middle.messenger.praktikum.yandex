@@ -1,4 +1,3 @@
-import { IMessage } from '../../interfaces';
 import { EventBus } from '../eventBus';
 
 export enum WSTransportEvents {

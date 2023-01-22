@@ -39,8 +39,8 @@ export class AuthController {
       await this.api.logout();
 
       navigate(ERoute.Index);
-    } catch (e: any) {
-      console.error(e.message);
+    } catch (e: unknown) {
+      console.error(e);
     }
   }
 

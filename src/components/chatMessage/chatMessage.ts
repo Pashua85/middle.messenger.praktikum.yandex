@@ -1,6 +1,4 @@
 import { Block } from '../../core';
-import { IMessage } from '../../interfaces';
-import { IState, withStore } from '../../store/store';
 import template from './chatMessage.hbs';
 
 interface ChatMessageProps {

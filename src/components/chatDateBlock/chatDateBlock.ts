@@ -2,7 +2,6 @@ import { Block } from '../../core';
 import template from './chatDateBlock.hbs';
 import { IMessage } from '../../interfaces';
 import './chatDateBlock.scss';
-import { ChatList } from '../chatList';
 import { ChatMessage } from '../chatMessage';
 
 interface ChatDateBlockProps {

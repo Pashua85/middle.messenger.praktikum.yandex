@@ -1,5 +1,5 @@
 import { EMAIL_RULES, LOGIN_RULES, NAME_RULES, PASSWORD_RULES, PHONES_RULES } from '../../constants';
-import { EInputType, EPage, ERoute } from '../../enums';
+import { EInputType, ERoute } from '../../enums';
 import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';

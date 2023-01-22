@@ -1,5 +1,4 @@
 import { Block, Route } from '..';
-import { SimpleObject } from '../../types';
 
 class Router {
   private routes: Route[] = [];
