@@ -1,7 +1,7 @@
 import { IPasswordData, IUser, IUserData } from '../../interfaces';
 import BaseAPI from './BaseAPI';
 
-export class UserAPI extends BaseAPI {
+export class UserAPIBase extends BaseAPI {
   public create = undefined;
   public update = undefined;
   public delete = undefined;
@@ -27,4 +27,4 @@ export class UserAPI extends BaseAPI {
   }
 }
 
-export default new UserAPI();
+export const UserAPI = new UserAPIBase();
