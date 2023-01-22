@@ -1,14 +1,14 @@
-import API, { AuthAPI } from '../core/api/AuthAPI';
 import { ERoute } from '../enums';
+import { AuthAPI, AuthAPIBase } from '../core/api/AuthAPI';
 import { ISigninData, ISignupData } from '../interfaces';
 import { navigate } from '../utils';
 import store from '../store/store';
 
 export class AuthController {
-  private readonly api: AuthAPI;
+  private readonly api: AuthAPIBase;
 
   constructor() {
-    this.api = API;
+    this.api = AuthAPI;
   }
 
   public async signin(data: ISigninData) {
