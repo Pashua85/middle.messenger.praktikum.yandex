@@ -1,4 +1,4 @@
-import { UserAPI, UserAPIBase } from '../core/api/UserAPI';
+import { UserAPI, UserAPIBase } from '../core/api/UserApi';
 import { IPasswordData, IUserData } from '../interfaces';
 import store from '../store/store';
 
