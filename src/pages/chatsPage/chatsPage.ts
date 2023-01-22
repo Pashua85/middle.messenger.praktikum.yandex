@@ -1,11 +1,10 @@
 import { Block } from '../../core';
-import { EPage, ERoute } from '../../enums';
+import { ERoute } from '../../enums';
 import template from './chatsPage.hbs';
 import './chatsPage.scss';
 import { Chat } from '../../components/chat/chat';
 import { TextLink } from '../../components/textLink/textLink';
 import { navigate } from '../../utils';
-import { ChatsItem } from '../../components/chatsItem/chatsItem';
 import ChatsController from '../../controllers/chatsController';
 import { IState, withStore } from '../../store/store';
 import { ChatList } from '../../components/chatList';

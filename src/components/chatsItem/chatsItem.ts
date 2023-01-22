@@ -6,6 +6,9 @@ interface ChatsItemProps {
   classNames?: string[];
   events?: Record<string, (event: Event | FocusEvent) => void>;
   title: string;
+  lastMessage: string;
+  time: string;
+  avatar: string;
 }
 
 export class ChatsItem extends Block<ChatsItemProps, never> {

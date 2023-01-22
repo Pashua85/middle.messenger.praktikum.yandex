@@ -1,6 +1,6 @@
 import { Block } from '../../core';
-import { EPage, EProfilePageViewMode, ERoute } from '../../enums';
-import { ProfileForm, ProfileFormBase } from '../../components/profileForm/profileForm';
+import { EProfilePageViewMode, ERoute } from '../../enums';
+import { ProfileForm } from '../../components/profileForm/profileForm';
 import template from './profilePage.hbs';
 import './profilePage.scss';
 import { PasswordForm } from '../../components/passwordForm';
@@ -11,7 +11,7 @@ import { RESOURCES } from '../../constants';
 import { Avatar } from '../../components/avatar';
 import ModalController from '../../controllers/modalController';
 import UserController from '../../controllers/userController';
-import { FileForm } from '../../components/fileForm/fileForm';
+import { FileForm } from '../../components/fileForm';
 
 interface ProfilePageProps {
   classNames: string[];
@@ -80,7 +80,6 @@ export class ProfilePageBase extends Block<
   }
 
   private async changeAvatar(data: FormData) {
-    console.log({ data });
     await UserController.changeAvatar(data);
   }
 }

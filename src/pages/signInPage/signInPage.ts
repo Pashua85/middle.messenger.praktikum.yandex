@@ -1,6 +1,5 @@
 import { SingInForm } from '../../components/signInForm';
 import { Block } from '../../core';
-import { EPage } from '../../enums';
 import template from './signInPage.hbs';
 import './signInPage.scss';
 

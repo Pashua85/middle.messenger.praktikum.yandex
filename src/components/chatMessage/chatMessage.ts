@@ -21,16 +21,6 @@ export class ChatMessage extends Block<ChatMessageProps, never> {
     super('div', { ...props, classNames });
   }
 
-  protected componentDidMount(): void {
-    console.log({ props: this.props });
-  }
-
-  protected componentDidUpdate(oldProps: ChatMessageProps, newProps: ChatMessageProps): boolean {
-    console.log({ oldProps, newProps });
-
-    return true;
-  }
-
   protected render(): DocumentFragment {
     return this.compile(template, { ...this.props });
   }

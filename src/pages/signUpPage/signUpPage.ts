@@ -1,12 +1,10 @@
 import { SingUpForm } from '../../components/signUpForm';
 import { Block } from '../../core';
-import { EPage } from '../../enums';
 import template from './signUpPage.hbs';
 import './signUpPage.scss';
 
 interface SingUpPageProps {
   classNames: string[];
-  // navigate: (page: EPage) => void;
 }
 
 export class SignUpPage extends Block<SingUpPageProps, SingUpForm> {

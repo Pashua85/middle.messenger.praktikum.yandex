@@ -27,10 +27,6 @@ export class Store extends EventBus {
 
 const store = new Store();
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-window.store = store;
-
 export function withStore<SP>(mapStateToProps: (state: IState) => SP) {
   // TODO убрать any
   return function wrap<P>(Component: AnyType) {

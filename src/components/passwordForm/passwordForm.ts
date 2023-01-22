@@ -65,8 +65,6 @@ export class PasswordForm extends Form<PasswordFormProps, FormInput | CustomButt
   }
 
   protected handleSubmit(formValues: Record<string, string>): void {
-    console.log({ formValues });
     UserController.changePassword({ oldPassword: formValues.old_password, newPassword: formValues.password });
-    // this.props.returnToProfile();
   }
 }

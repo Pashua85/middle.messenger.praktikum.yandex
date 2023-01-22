@@ -1,5 +1,5 @@
 import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
-import { EInputType, EPage, ERoute } from '../../enums';
+import { EInputType, ERoute } from '../../enums';
 import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
@@ -8,7 +8,6 @@ import { TextLink } from '../textLink';
 import template from './signInForm.hbs';
 import AuthController from '../../controllers/authController';
 import './signInForm.scss';
-import { ISigninData } from '../../interfaces';
 
 interface SignInFormProps {
   classNames: string[];
@@ -69,7 +68,6 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    // this.props.navigate(EPage.SIGN_UP);
     navigate(ERoute.Register);
   }
 }

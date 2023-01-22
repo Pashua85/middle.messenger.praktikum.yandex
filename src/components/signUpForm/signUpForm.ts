@@ -12,7 +12,6 @@ import { ISignupData } from '../../interfaces';
 
 interface SignUpFormProps {
   classNames: string[];
-  // navigate: (page: EPage) => void;
 }
 
 export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -87,9 +86,7 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
       phoneInput,
       button: new CustomButton({
         label: 'Зарегистрироваться',
-        events: {
-          click: () => console.log('Зарегистрироваться!'),
-        },
+        events: {},
         type: 'submit',
       }),
       link: new TextLink({
