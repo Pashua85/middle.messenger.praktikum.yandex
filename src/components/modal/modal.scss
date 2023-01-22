@@ -1,0 +1,21 @@
+@import "../../variables.scss";
+
+.modal {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 500;
+  background-color: $grey-5;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &__content {
+    background-color: white;
+    padding: 50px;
+    width: fit-content;
+    height: fit-content;
+  }
+}

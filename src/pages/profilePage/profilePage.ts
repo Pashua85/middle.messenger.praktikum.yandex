@@ -9,6 +9,7 @@ import { navigate } from '../../utils';
 import { IState, withStore } from '../../store/store';
 import { RESOURCES } from '../../constants';
 import { Avatar } from '../../components/avatar';
+import ModalController from '../../controllers/modalController';
 
 interface ProfilePageProps {
   classNames: string[];
@@ -50,14 +51,6 @@ export class ProfilePageBase extends Block<
     super('div', { ...props, classNames: ['profile'] }, children);
   }
 
-  protected init() {
-    // this.setProps({
-    //   events: {
-    //     click: (e: PointerEvent) => console.log({ target: e.target }),
-    //   },
-    // });
-  }
-
   protected componentDidUpdate(oldProps: ProfilePageProps, newProps: ProfilePageProps): boolean {
     if (oldProps?.avatar !== newProps?.avatar) {
       this.children.avatar.setProps({ avatar: newProps.avatar });
@@ -75,7 +68,7 @@ export class ProfilePageBase extends Block<
   }
 
   private openAvatarModal(): void {
-    console.log('open avatar modal');
+    ModalController.open();
   }
 }
 
