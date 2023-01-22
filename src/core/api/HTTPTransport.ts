@@ -3,6 +3,7 @@ type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 type Options = {
   method: Method;
   data?: unknown;
+  headers?: Record<string, string>;
 };
 
 export default class HTTPTransport {
