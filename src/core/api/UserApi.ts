@@ -14,7 +14,7 @@ export class UserAPIBase extends BaseAPI {
     return this.http.put('/profile', data);
   }
 
-  public changeAvatar(file: FormData) {
+  public changeAvatar(file: FormData): Promise<IUser> {
     return this.http.put('/profile/avatar', file);
   }
 

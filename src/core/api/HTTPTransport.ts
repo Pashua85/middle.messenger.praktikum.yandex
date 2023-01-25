@@ -4,6 +4,7 @@ type Options = {
   method: Method;
   data?: unknown;
   headers?: Record<string, string>;
+  timeout?: number;
 };
 
 export default class HTTPTransport {
@@ -47,38 +48,40 @@ export default class HTTPTransport {
   }
 
   private request<Response>(url: string, options: Options = { method: 'GET' }): Promise<Response> {
-    const { method, data } = options;
-
     return new Promise((resolve, reject) => {
+      const { data, headers, timeout, method } = options;
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status < 400) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.onabort = () => reject({ reason: 'abort' });
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.onerror = () => reject({ reason: 'network error' });
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.ontimeout = () => reject({ reason: 'timeout' });
-
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
+      xhr.open(method, url, true);
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
-      if (method === 'GET' || !data) {
+      xhr.onload = () => {
+        if (xhr.status !== 200) {
+          reject(xhr.response);
+        } else {
+          resolve(xhr.response);
+        }
+      };
+
+      xhr.onabort = reject;
+      xhr.onerror = reject;
+      if (timeout) xhr.timeout = timeout;
+      xhr.ontimeout = reject;
+
+      if (headers) {
+        Object.keys(headers).forEach((key) => {
+          xhr.setRequestHeader(key, headers[key]);
+        });
+      }
+
+      if (method === 'GET' && !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
       }
     });
   }

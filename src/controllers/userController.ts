@@ -29,7 +29,8 @@ export class UserController {
 
   public async changeAvatar(data: FormData) {
     try {
-      await this.api.changeAvatar(data);
+      const user = await this.api.changeAvatar(data);
+      store.set('user', user);
     } catch (e: unknown) {
       alert(e);
     }
