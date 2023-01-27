@@ -8,6 +8,10 @@ import { MessageForm } from '../messageForm';
 import { IState, withStore } from '../../store/store';
 import { IMessage } from '../../interfaces';
 import { ChatDateBlock } from '../chatDateBlock';
+import { RESOURCES } from '../../constants';
+import { Avatar } from '../avatar';
+import ModalController from '../../controllers/modalController';
+import { FileForm } from '../fileForm';
 
 interface ChatProps {
   classNames: string[];
@@ -15,10 +19,12 @@ interface ChatProps {
   selectedChat?: number;
   messages: IMessage[];
   userId: number;
+  avatar?: string;
 }
 
 export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm | typeof ChatDateBlock> {
   constructor(props: ChatProps) {
+    console.log({ chatProps: props });
     const children = {
       contextMenu: new ContextMenu(
         { type: EContextMenu.HEADER, open: false },
@@ -58,6 +64,19 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       });
     }
 
+    if (oldProps?.avatar !== newProps?.avatar) {
+      this.setChildren({
+        ...this.children,
+        avatar: new Avatar({
+          classNames: ['chat__avatar'],
+          avatar: newProps?.avatar,
+          events: {
+            click: () => this.openAvatarModal(),
+          },
+        }),
+      });
+    }
+
     return true;
   }
 
@@ -91,6 +110,20 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       (item) => new ChatDateBlock({ date: item.date, messages: item.messages, userId: this.props.userId }),
     );
   }
+
+  private openAvatarModal() {
+    ModalController.open(
+      new FileForm({
+        onSubmit: (data: FormData) => {
+          this.changeAvatar(data);
+        },
+      }),
+    );
+  }
+
+  private async changeAvatar(data: FormData) {
+    // await UserController.changeAvatar(data);
+  }
 }
 
 const mapStateToProps = (state: IState) => {
@@ -103,13 +136,18 @@ const mapStateToProps = (state: IState) => {
     };
   }
 
-  const title = state.chats.find((item) => item.id === state.selectedChat)?.title;
+  const chat = state.chats.find((item) => item.id === state.selectedChat);
+
+  const title = chat?.title;
+  const avatar = chat?.avatar ? `${RESOURCES}/${chat.avatar}` : undefined;
+
   const messages = state.messages[state.selectedChat] ?? [];
   return {
     selectedChat: state.selectedChat,
     title,
     userId: state.user?.id,
     messages,
+    avatar,
   };
 };
 

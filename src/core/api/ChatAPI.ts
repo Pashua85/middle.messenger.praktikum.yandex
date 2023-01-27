@@ -9,11 +9,11 @@ export class ChatsAPI extends BaseAPI {
   }
 
   public create(title: string) {
-    return this.http.post('/', { title });
+    return this.http.post('/', { data: { title } });
   }
 
   public delete(id: number): Promise<unknown> {
-    return this.http.delete('/', { chatId: id });
+    return this.http.delete('/', { data: { chatId: id } });
   }
 
   public read(): Promise<IChatInfo[]> {
@@ -25,7 +25,7 @@ export class ChatsAPI extends BaseAPI {
   }
 
   public addUsers(id: number, users: number[]): Promise<unknown> {
-    return this.http.put('/users', { users, chatId: id });
+    return this.http.put('/users', { data: { users, chatId: id } });
   }
 
   public async getToken(id: number): Promise<string> {

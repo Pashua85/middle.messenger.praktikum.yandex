@@ -1,2 +1,5 @@
-<input type="file" name="avatar" />
+{{#if errorMessage}}
+<div class="file-form__errorMessage">{{errorMessage}}</div>
+{{/if}}
+{{{input}}}
 {{{button}}}

@@ -11,15 +11,15 @@ export class UserAPIBase extends BaseAPI {
   }
 
   public changeProfile(data: IUserData): Promise<IUser> {
-    return this.http.put('/profile', data);
+    return this.http.put('/profile', { data });
   }
 
-  public changeAvatar(file: FormData): Promise<IUser> {
-    return this.http.put('/profile/avatar', file);
+  public changeAvatar(data: FormData): Promise<IUser> {
+    return this.http.put('/profile/avatar', { data, headers: {} });
   }
 
   public changePassword(data: IPasswordData) {
-    return this.http.put('/profile/password', data);
+    return this.http.put('/profile/password', { data });
   }
 
   public read(id: number) {

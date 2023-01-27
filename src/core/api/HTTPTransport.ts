@@ -15,35 +15,42 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.endpoint + path);
+  public get<Response>(path = '/', options: Partial<Options> = {}): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: 'GET',
+      ...options,
+    });
   }
 
-  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+  public post<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: 'POST',
-      data,
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+  public put<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: 'PUT',
-      data,
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+  public patch<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: 'PATCH',
-      data,
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  public delete<Response>(path: string, data?: unknown): Promise<Response> {
+  public delete<Response>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
       method: 'DELETE',
-      data,
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 

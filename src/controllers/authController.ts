@@ -16,8 +16,9 @@ export class AuthController {
       await this.api.signin(data);
       await this.fetchUser();
 
-      navigate(ERoute.Profile);
+      navigate(ERoute.Chats);
     } catch (e: unknown) {
+      console.error(e);
       alert(e);
     }
   }

@@ -32,6 +32,7 @@ export class UserController {
       const user = await this.api.changeAvatar(data);
       store.set('user', user);
     } catch (e: unknown) {
+      console.log({ e });
       alert(e);
     }
   }

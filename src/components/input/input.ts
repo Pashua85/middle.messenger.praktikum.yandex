@@ -3,7 +3,7 @@ import template from './input.hbs';
 
 interface InputProps {
   classNames?: string[];
-  events?: Record<string, (event: Event | FocusEvent) => void>;
+  events?: Record<string, (event: InputEvent) => void>;
   type: string;
   name: string;
   placeholder?: string;
