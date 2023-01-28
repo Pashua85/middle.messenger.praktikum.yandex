@@ -33,6 +33,11 @@ export class ChatsAPI extends BaseAPI {
 
     return response.token;
   }
+
+  public changeAvatar(chatId: number, data: FormData): Promise<IChatInfo> {
+    data.append('chatId', String(chatId));
+    return this.http.put('/avatar', { data, headers: {} });
+  }
 }
 
 export default new ChatsAPI();

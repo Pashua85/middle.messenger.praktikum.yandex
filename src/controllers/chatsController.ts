@@ -44,6 +44,25 @@ class ChatsController {
     }
   }
 
+  public async changeAvatar(chatId: number, data: FormData) {
+    try {
+      const chat = await this.api.changeAvatar(chatId, data);
+
+      const newChats = store.getState().chats.map((item) => {
+        if (item.id !== chat.id) {
+          return item;
+        }
+        return {
+          ...item,
+          avatar: chat.avatar,
+        };
+      });
+      store.set('chats', newChats);
+    } catch (e: unknown) {
+      alert(e);
+    }
+  }
+
   public async delete(id: number) {
     await this.api.delete(id);
 

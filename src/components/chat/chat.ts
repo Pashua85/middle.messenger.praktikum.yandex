@@ -11,8 +11,9 @@ import { ChatDateBlock } from '../chatDateBlock';
 import { RESOURCES } from '../../constants';
 import { Avatar } from '../avatar';
 import ModalController from '../../controllers/modalController';
+import ChatsController from '../../controllers/chatsController';
 import { FileForm } from '../fileForm';
-import { UserForm } from '../userForm';
+import { AddUserForm } from '../addUserForm';
 
 interface ChatProps {
   classNames: string[];
@@ -122,11 +123,14 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
   }
 
   private openAddUserForm() {
-    ModalController.open(new UserForm({}), this.handleCloseModal.bind(this));
+    ModalController.open(new AddUserForm({}), this.handleCloseModal.bind(this));
   }
 
   private async changeAvatar(data: FormData) {
-    // await UserController.changeAvatar(data);
+    console.log({ data });
+    if (this.props.selectedChat) {
+      ChatsController.changeAvatar(this.props.selectedChat, data);
+    }
   }
 
   private handleCloseModal() {

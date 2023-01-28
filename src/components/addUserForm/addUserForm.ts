@@ -4,18 +4,18 @@ import { CustomButton } from '../customButton';
 import { UserInput } from '../userInput';
 import ChatsController from '../../controllers/chatsController';
 import ModalController from '../../controllers/modalController';
-import template from './userForm.hbs';
-import './userForm.scss';
+import template from './addUserForm.hbs';
+import './addUserForm.scss';
 
-interface UserFormProps {
+interface AddUserFormProps {
   classNames?: string[];
   errorMessage?: string;
   events?: Record<string, (event: Event) => void>;
   selectedChat?: number;
 }
 
-class UserFormBase extends Block<UserFormProps, CustomButton | UserInput> {
-  constructor(props: UserFormProps) {
+class AddUserFormBase extends Block<AddUserFormProps, CustomButton | UserInput> {
+  constructor(props: AddUserFormProps) {
     const classNames = ['user-form'];
 
     const children = {
@@ -65,4 +65,4 @@ const mapStateToProps = (state: IState) => ({
   selectedChat: state.selectedChat,
 });
 
-export const UserForm = withStore(mapStateToProps)(UserFormBase);
+export const AddUserForm = withStore(mapStateToProps)(AddUserFormBase);
