@@ -42,6 +42,14 @@ export class ContextMenu extends Block<ContextMenuProps> {
     );
   }
 
+  public static isContextMenu(block: unknown): block is ContextMenu {
+    return block instanceof ContextMenu;
+  }
+
+  public close() {
+    this.setProps({ open: false });
+  }
+
   public render() {
     const template = this.props.type === EContextMenu.HEADER ? headerTemplate : messageTemplate;
     return this.compile(template, { ...this.props });

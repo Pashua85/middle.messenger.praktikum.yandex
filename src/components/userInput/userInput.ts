@@ -10,6 +10,7 @@ interface UserInputProps {
   classNames?: string[];
   showOptions?: boolean;
   errorMessage?: string;
+  onChange?: () => void;
 }
 
 export class UserInput extends Block<UserInputProps, Input | UserOption[]> {
@@ -29,14 +30,27 @@ export class UserInput extends Block<UserInputProps, Input | UserOption[]> {
           input: (e: InputEvent) => {
             this.handleChange(e);
           },
-          blur: () => {
-            this.handleBlur();
-          },
         },
       }),
     };
 
     super('div', { ...props, classNames }, children);
+  }
+
+  public get selectedId(): number | null {
+    return this._selectedId;
+  }
+
+  public static isUserInput(block: unknown): block is UserInput {
+    return block instanceof UserInput;
+  }
+
+  public handleOutsideClick(e: Event) {
+    const isOutside = !this.checkIfClickOutside(e);
+
+    if (isOutside && this.props.showOptions) {
+      this.setProps({ showOptions: false });
+    }
   }
 
   protected render(): DocumentFragment {
@@ -45,6 +59,8 @@ export class UserInput extends Block<UserInputProps, Input | UserOption[]> {
 
   private async handleChange(e: InputEvent) {
     const value = (e.target as HTMLInputElement).value;
+
+    this.props.onChange?.();
 
     if (value && this.searchedValue !== value) {
       const users = await UserController.searchUser(value);
@@ -104,8 +120,7 @@ export class UserInput extends Block<UserInputProps, Input | UserOption[]> {
     );
   }
 
-  private handleBlur() {
-    if (!this._selectedId) {
-    }
+  private checkIfClickOutside(e: Event): boolean {
+    return !!this.element?.contains(e.target as Node);
   }
 }

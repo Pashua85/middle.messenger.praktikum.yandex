@@ -36,8 +36,12 @@ class ChatsController {
     store.set('chats', chatsWithUsers);
   }
 
-  public addUserToChat(id: number, userId: number) {
-    this.api.addUsers(id, [userId]);
+  public async addUserToChat(id: number, userId: number) {
+    try {
+      await this.api.addUsers(id, [userId]);
+    } catch (e: unknown) {
+      alert(e);
+    }
   }
 
   public async delete(id: number) {

@@ -39,8 +39,6 @@ export class UserController {
   public async searchUser(login: string): Promise<IUser[] | null> {
     try {
       return this.api.search(login);
-      console.log();
-      // store.set('user', user);
     } catch (e: unknown) {
       alert(e);
       return null;

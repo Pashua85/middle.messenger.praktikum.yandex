@@ -32,7 +32,7 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
           option1: new MenuOption({
             label: 'Добавить пользователя',
             events: {
-              click: () => console.log('option click!'),
+              click: () => this.openAddUserForm(),
             },
           }),
           option2: new MenuOption({
@@ -58,7 +58,6 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       (oldProps?.selectedChat !== newProps?.selectedChat && newProps.messages) ||
       oldProps?.messages?.length !== newProps?.messages?.length
     ) {
-      ModalController.open(new UserForm({}));
       this.setChildren({
         ...this.children,
         chatDateBlocks: this.formDateBlocks(newProps.messages),
@@ -122,13 +121,24 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
     );
   }
 
+  private openAddUserForm() {
+    ModalController.open(new UserForm({}), this.handleCloseModal.bind(this));
+  }
+
   private async changeAvatar(data: FormData) {
     // await UserController.changeAvatar(data);
+  }
+
+  private handleCloseModal() {
+    console.log('handleClose');
+    const { contextMenu } = this.children;
+    if (ContextMenu.isContextMenu(contextMenu)) {
+      contextMenu.close();
+    }
   }
 }
 
 const mapStateToProps = (state: IState) => {
-  console.log({ state });
   if (!state.selectedChat) {
     return {
       selectedChat: state.selectedChat,
