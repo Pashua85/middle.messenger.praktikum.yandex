@@ -10,7 +10,6 @@ interface AvatarProps {
 
 export class Avatar extends Block<AvatarProps, never> {
   constructor(props: AvatarProps) {
-    console.log({ avProps: props });
     super('div', { ...props, classNames: [...props.classNames, 'avatar'] });
   }
 

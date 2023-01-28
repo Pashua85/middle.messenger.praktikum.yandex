@@ -25,6 +25,10 @@ export class UserAPIBase extends BaseAPI {
   public read(id: number) {
     return this.http.get(`/user/${id}`);
   }
+
+  public search(login: string): Promise<IUser[]> {
+    return this.http.post('/search', { data: { login } });
+  }
 }
 
 export const UserAPI = new UserAPIBase();

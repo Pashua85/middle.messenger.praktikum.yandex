@@ -37,7 +37,10 @@ export class Modal extends Block<ModalProps, BlockInterface<SimpleObject>> {
 
     const contains = contentElement?.contains(e.target as Node);
 
+    console.log({ contentElement, et: e.target });
+
     if (!contains) {
+      console.log('not contain', { e: e.target });
       ModalController.close();
     }
   }

@@ -1,0 +1,11 @@
+ @import '../../variables.scss';
+
+.user-option {
+  border-radius: 5px;
+  padding: 5px;
+
+  &:hover {
+    background-color: $grey-1;
+    cursor: pointer;
+  }
+}

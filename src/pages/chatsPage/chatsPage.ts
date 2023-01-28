@@ -8,6 +8,8 @@ import { navigate } from '../../utils';
 import ChatsController from '../../controllers/chatsController';
 import { IState, withStore } from '../../store/store';
 import { ChatList } from '../../components/chatList';
+import ModalController from '../../controllers/modalController';
+import { UserForm } from '../../components/userForm';
 
 interface ChatsPageProps {
   classNames: string[];

@@ -39,7 +39,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     Router.start();
 
     if (!isProtectedRoute) {
-      navigate(ERoute.Profile);
+      navigate(ERoute.Chats);
     }
   } catch (e) {
     Router.start();

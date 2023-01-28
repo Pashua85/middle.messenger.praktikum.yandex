@@ -12,6 +12,7 @@ import { RESOURCES } from '../../constants';
 import { Avatar } from '../avatar';
 import ModalController from '../../controllers/modalController';
 import { FileForm } from '../fileForm';
+import { UserForm } from '../userForm';
 
 interface ChatProps {
   classNames: string[];
@@ -24,7 +25,6 @@ interface ChatProps {
 
 export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm | typeof ChatDateBlock> {
   constructor(props: ChatProps) {
-    console.log({ chatProps: props });
     const children = {
       contextMenu: new ContextMenu(
         { type: EContextMenu.HEADER, open: false },
@@ -58,6 +58,7 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       (oldProps?.selectedChat !== newProps?.selectedChat && newProps.messages) ||
       oldProps?.messages?.length !== newProps?.messages?.length
     ) {
+      ModalController.open(new UserForm({}));
       this.setChildren({
         ...this.children,
         chatDateBlocks: this.formDateBlocks(newProps.messages),

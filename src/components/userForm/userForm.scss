@@ -1,0 +1,13 @@
+ @import '../../variables.scss';
+
+.user-form {
+  width: 340px;
+  padding: 30px;
+  background-color: $white;
+  outline: 1px solid red;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+

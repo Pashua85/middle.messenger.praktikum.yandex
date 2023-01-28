@@ -18,6 +18,10 @@ export class Input extends Block<InputProps, never> {
     });
   }
 
+  public static isInput(block: unknown): block is Input {
+    return block instanceof Input;
+  }
+
   public render() {
     return this.compile(template, { ...this.props });
   }
@@ -32,7 +36,13 @@ export class Input extends Block<InputProps, never> {
     }
 
     if (oldProps.value !== newProps.value) {
-      this.element?.setAttribute('value', newProps.value || '');
+      console.log({ newInputValue: newProps.value, el: this.element });
+      // // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // // @ts-ignore
+      (this.element as HTMLInputElement).value = newProps.value || '';
+      // this.element?.setAttribute
+
+      // this.element?.setAttribute('value', newProps.value || '');
     }
     return true;
   }
