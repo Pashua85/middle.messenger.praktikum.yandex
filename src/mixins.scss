@@ -1,0 +1,20 @@
+@mixin user-form {
+  width: 340px;
+  padding: 30px;
+  padding-top: 40px;
+  background-color: $white;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@mixin user-form-message {
+  color: $red;
+  position: absolute;
+  top: 15px;
+  left: 30px;
+  width: 280px;
+  text-align: center;
+  font-size: 12px;
+}

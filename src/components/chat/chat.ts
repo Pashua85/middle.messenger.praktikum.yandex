@@ -8,6 +8,13 @@ import { MessageForm } from '../messageForm';
 import { IState, withStore } from '../../store/store';
 import { IMessage } from '../../interfaces';
 import { ChatDateBlock } from '../chatDateBlock';
+import { RESOURCES } from '../../constants';
+import { Avatar } from '../avatar';
+import ModalController from '../../controllers/modalController';
+import ChatsController from '../../controllers/chatsController';
+import { FileForm } from '../fileForm';
+import { AddUserForm } from '../addUserForm';
+import { DeleteUserForm } from '../deleteUserForm';
 
 interface ChatProps {
   classNames: string[];
@@ -15,6 +22,7 @@ interface ChatProps {
   selectedChat?: number;
   messages: IMessage[];
   userId: number;
+  avatar?: string;
 }
 
 export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm | typeof ChatDateBlock> {
@@ -26,13 +34,13 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
           option1: new MenuOption({
             label: 'Добавить пользователя',
             events: {
-              click: () => console.log('option click!'),
+              click: () => this.openUserForm('add'),
             },
           }),
           option2: new MenuOption({
             label: 'Удалить пользователя',
             events: {
-              click: () => console.log('option click!'),
+              click: () => this.openUserForm('delete'),
             },
           }),
         },
@@ -58,14 +66,25 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
       });
     }
 
+    if (oldProps?.avatar !== newProps?.avatar) {
+      this.setChildren({
+        ...this.children,
+        avatar: new Avatar({
+          classNames: ['chat__avatar'],
+          avatar: newProps?.avatar,
+          events: {
+            click: () => this.openAvatarModal(),
+          },
+        }),
+      });
+    }
+
     return true;
   }
 
   private formDateBlocks(messages: IMessage[]): ChatDateBlock[] {
-    const blocksToCreate: Record<string, { date: string; messages: IMessage[] }> = {};
-
-    messages.forEach((item) => {
-      const dateObject = new Date(item.time);
+    const blocksToCreate = messages.reduce((acc, message) => {
+      const dateObject = new Date(message.time);
       const dateStringWithYear = dateObject.toLocaleDateString('ru-RU', {
         month: 'long',
         day: 'numeric',
@@ -76,25 +95,54 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
         day: 'numeric',
       });
 
-      if (!blocksToCreate[dateStringWithYear]) {
-        blocksToCreate[dateStringWithYear] = {
+      if (!acc[dateStringWithYear]) {
+        acc[dateStringWithYear] = {
           date: dateString,
-          messages: [item],
+          messages: [message],
         };
-        return;
+        return acc;
       }
 
-      blocksToCreate[dateStringWithYear].messages.push(item);
-    });
+      acc[dateStringWithYear].messages.push(message);
+
+      return acc;
+    }, {} as Record<string, { date: string; messages: IMessage[] }>);
 
     return Object.values(blocksToCreate).map(
       (item) => new ChatDateBlock({ date: item.date, messages: item.messages, userId: this.props.userId }),
     );
   }
+
+  private openAvatarModal() {
+    ModalController.open(
+      new FileForm({
+        onSubmit: (data: FormData) => {
+          this.changeAvatar(data);
+        },
+      }),
+    );
+  }
+
+  private openUserForm(formType: 'delete' | 'add') {
+    const form = formType === 'add' ? new AddUserForm({}) : new DeleteUserForm({});
+    ModalController.open(form, this.handleCloseModal.bind(this));
+  }
+
+  private async changeAvatar(data: FormData) {
+    if (this.props.selectedChat) {
+      ChatsController.changeAvatar(this.props.selectedChat, data);
+    }
+  }
+
+  private handleCloseModal() {
+    const { contextMenu } = this.children;
+    if (ContextMenu.isContextMenu(contextMenu)) {
+      contextMenu.close();
+    }
+  }
 }
 
 const mapStateToProps = (state: IState) => {
-  console.log({ state });
   if (!state.selectedChat) {
     return {
       selectedChat: state.selectedChat,
@@ -103,13 +151,18 @@ const mapStateToProps = (state: IState) => {
     };
   }
 
-  const title = state.chats.find((item) => item.id === state.selectedChat)?.title;
+  const chat = state.chats.find((item) => item.id === state.selectedChat);
+
+  const title = chat?.title;
+  const avatar = chat?.avatar ? `${RESOURCES}/${chat.avatar}` : undefined;
+
   const messages = state.messages[state.selectedChat] ?? [];
   return {
     selectedChat: state.selectedChat,
     title,
     userId: state.user?.id,
     messages,
+    avatar,
   };
 };
 

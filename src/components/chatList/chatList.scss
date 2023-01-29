@@ -1,13 +1,14 @@
 @import "../../variables.scss";
 
-
 .chat-list {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
   padding-top: 14px;
-  padding-bottom: 14px;
 
   &__loader {
     padding: 14px;
   }
 }
+

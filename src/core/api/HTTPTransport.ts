@@ -1,16 +1,10 @@
-import { AnyType } from '../../types';
-
-export enum Method {
-  Get = 'Get',
-  Post = 'Post',
-  Put = 'Put',
-  Patch = 'Patch',
-  Delete = 'Delete',
-}
+type Method = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 
 type Options = {
   method: Method;
-  data?: AnyType;
+  data?: unknown;
+  headers?: Record<string, string>;
+  timeout?: number;
 };
 
 export default class HTTPTransport {
@@ -21,71 +15,80 @@ export default class HTTPTransport {
     this.endpoint = `${HTTPTransport.API_URL}${endpoint}`;
   }
 
-  public get<Response>(path = '/'): Promise<Response> {
-    return this.request<Response>(this.endpoint + path);
-  }
-
-  public post<Response = void>(path: string, data?: unknown): Promise<Response> {
+  public get<Response>(path = '/', options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Post,
-      data,
+      method: 'GET',
+      ...options,
     });
   }
 
-  public put<Response = void>(path: string, data: unknown): Promise<Response> {
+  public post<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Put,
-      data,
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  public patch<Response = void>(path: string, data: unknown): Promise<Response> {
+  public put<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Patch,
-      data,
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  public delete<Response>(path: string, data?: unknown): Promise<Response> {
+  public patch<Response = void>(path: string, options: Partial<Options> = {}): Promise<Response> {
     return this.request<Response>(this.endpoint + path, {
-      method: Method.Delete,
-      data,
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
     });
   }
 
-  private request<Response>(url: string, options: Options = { method: Method.Get }): Promise<Response> {
-    const { method, data } = options;
+  public delete<Response>(path: string, options: Partial<Options> = {}): Promise<Response> {
+    return this.request<Response>(this.endpoint + path, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      ...options,
+    });
+  }
 
+  private request<Response>(url: string, options: Options = { method: 'GET' }): Promise<Response> {
     return new Promise((resolve, reject) => {
+      const { data, headers, timeout, method } = options;
       const xhr = new XMLHttpRequest();
-      xhr.open(method, url);
-
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-          if (xhr.status < 400) {
-            resolve(xhr.response);
-          } else {
-            reject(xhr.response);
-          }
-        }
-      };
-
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.onabort = () => reject({ reason: 'abort' });
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.onerror = () => reject({ reason: 'network error' });
-      // eslint-disable-next-line prefer-promise-reject-errors
-      xhr.ontimeout = () => reject({ reason: 'timeout' });
-
-      xhr.setRequestHeader('Content-Type', 'application/json');
-
+      xhr.open(method, url, true);
       xhr.withCredentials = true;
       xhr.responseType = 'json';
 
-      if (method === Method.Get || !data) {
+      xhr.onload = () => {
+        if (xhr.status !== 200) {
+          reject(xhr.response);
+        } else {
+          resolve(xhr.response);
+        }
+      };
+
+      xhr.onabort = reject;
+      xhr.onerror = reject;
+      if (timeout) xhr.timeout = timeout;
+      xhr.ontimeout = reject;
+
+      if (headers) {
+        Object.keys(headers).forEach((key) => {
+          xhr.setRequestHeader(key, headers[key]);
+        });
+      }
+
+      if (method === 'GET' && !data) {
         xhr.send();
       } else {
-        xhr.send(JSON.stringify(data));
+        if (data instanceof FormData) {
+          xhr.send(data);
+        } else {
+          xhr.send(JSON.stringify(data));
+        }
       }
     });
   }

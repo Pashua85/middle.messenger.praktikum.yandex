@@ -3,7 +3,7 @@ import template from './input.hbs';
 
 interface InputProps {
   classNames?: string[];
-  events?: Record<string, (event: Event | FocusEvent) => void>;
+  events?: Record<string, (event: InputEvent) => void>;
   type: string;
   name: string;
   placeholder?: string;
@@ -16,6 +16,10 @@ export class Input extends Block<InputProps, never> {
     super('input', {
       ...props,
     });
+  }
+
+  public static isInput(block: unknown): block is Input {
+    return block instanceof Input;
   }
 
   public render() {
@@ -32,7 +36,7 @@ export class Input extends Block<InputProps, never> {
     }
 
     if (oldProps.value !== newProps.value) {
-      this.element?.setAttribute('value', newProps.value || '');
+      (this.element as HTMLInputElement).value = newProps.value || '';
     }
     return true;
   }

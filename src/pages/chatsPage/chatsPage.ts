@@ -6,8 +6,11 @@ import { Chat } from '../../components/chat/chat';
 import { TextLink } from '../../components/textLink/textLink';
 import { navigate } from '../../utils';
 import ChatsController from '../../controllers/chatsController';
+import ModalController from '../../controllers/modalController';
 import { IState, withStore } from '../../store/store';
 import { ChatList } from '../../components/chatList';
+import { CustomButton } from '../../components/customButton/customButton';
+import { AddChatModal } from '../../components/addChatForm';
 
 interface ChatsPageProps {
   classNames: string[];
@@ -29,6 +32,13 @@ export class ChatsPageBase extends Block<ChatsPageProps, typeof Chat | TextLink 
         },
       }),
       chatList: new ChatList({ isLoaded: false }),
+      addButton: new CustomButton({
+        label: 'Создать чат',
+        events: {
+          click: () => this.openCreateChatModal(),
+        },
+        classNames: ['addChatButton'],
+      }),
     };
 
     super('div', { ...props, classNames: ['chats'] }, children);
@@ -44,6 +54,10 @@ export class ChatsPageBase extends Block<ChatsPageProps, typeof Chat | TextLink 
 
   protected render(): DocumentFragment {
     return this.compile(template, {});
+  }
+
+  private openCreateChatModal() {
+    ModalController.open(new AddChatModal({}));
   }
 }
 

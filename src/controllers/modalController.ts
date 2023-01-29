@@ -4,6 +4,7 @@ import { Block } from '../core';
 export class ModalController {
   private appElement: Element | null = null;
   private modal: Modal | null = null;
+  private onClose: null | undefined | (() => void) = null;
 
   constructor(private readonly appQuery: string, private readonly modalQuery: string) {
     this.appElement = document.querySelector(this.appQuery);
@@ -13,8 +14,9 @@ export class ModalController {
     });
   }
 
-  public open(component: Block) {
+  public open(component: Block, onClose?: () => void) {
     this.close();
+    this.onClose = onClose;
 
     this.modal = new Modal({});
     this.modal.setContent(component);
@@ -33,6 +35,8 @@ export class ModalController {
     if (oldModal) {
       this.appElement?.removeChild(oldModal);
     }
+
+    this.onClose?.();
   }
 
   private handleKeydown(e: KeyboardEvent) {

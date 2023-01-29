@@ -1,5 +1,5 @@
 import { UserAPI, UserAPIBase } from '../core/api/UserApi';
-import { IPasswordData, IUserData } from '../interfaces';
+import { IPasswordData, IUser, IUserData } from '../interfaces';
 import store from '../store/store';
 
 export class UserController {
@@ -15,7 +15,7 @@ export class UserController {
 
       store.set('user', user);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
@@ -23,15 +23,25 @@ export class UserController {
     try {
       await this.api.changePassword(data);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
     }
   }
 
   public async changeAvatar(data: FormData) {
     try {
-      await this.api.changeAvatar(data);
+      const user = await this.api.changeAvatar(data);
+      store.set('user', user);
     } catch (e: unknown) {
-      console.error(e);
+      alert(e);
+    }
+  }
+
+  public async searchUser(login: string): Promise<IUser[] | null> {
+    try {
+      return this.api.search(login);
+    } catch (e: unknown) {
+      alert(e);
+      return null;
     }
   }
 }

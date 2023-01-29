@@ -37,9 +37,7 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
       passwordInput,
       button: new CustomButton({
         label: 'Авторизоваться',
-        events: {
-          click: () => console.log('Авторизоваться!'),
-        },
+        events: {},
         type: 'submit',
       }),
       link: new TextLink({

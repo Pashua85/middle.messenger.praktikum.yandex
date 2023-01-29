@@ -1,0 +1,36 @@
+ @import '../../variables.scss';
+
+.user-input {
+  position: relative;
+
+  &__field {
+    outline: none;
+    border: 1px solid $base-color;
+    height: 37px;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 13px;
+    line-height: 13px;
+    padding-left: 10px;
+    padding-right: 6px;
+    color: $grey;
+
+    &_selected {
+      color: $black;
+    }
+  }
+
+  &__options {
+    position: absolute;
+    width: 100%;
+    height: fit-content;
+    top: calc(100% + 5px);
+    background-color: $white;
+    padding: 5px;
+    border: 1px solid $grey-5;
+    border-radius: 6px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+}
