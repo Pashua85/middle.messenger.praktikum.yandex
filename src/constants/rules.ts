@@ -32,3 +32,7 @@ export const NAME_RULES: FormInputRules = {
   ['Может содержать первую заглавную букву, строчные буквы и дефис']: (value) =>
     /^([A-ZА-Я]){1,1}[а-яa-z\-]*$/.test(value),
 };
+
+export const CHAT_TITLE_RULES: FormInputRules = {
+  ['Обязательное поле']: (value) => /\S+/.test(value),
+};

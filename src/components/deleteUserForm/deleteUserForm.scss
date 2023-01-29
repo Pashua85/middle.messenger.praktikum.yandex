@@ -1,0 +1,19 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.delete-user-form {
+  @include user-form;
+
+  &__select {
+    outline: none;
+    border: 1px solid $base-color;
+    height: 37px;
+    border-radius: 6px;
+    width: 100%;
+    font-size: 13px;
+    line-height: 13px;
+    padding-left: 10px;
+    padding-right: 6px;
+    color: $grey;
+  }
+}

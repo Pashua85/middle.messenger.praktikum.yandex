@@ -16,7 +16,7 @@ interface AddUserFormProps {
 
 class AddUserFormBase extends Block<AddUserFormProps, CustomButton | UserInput> {
   constructor(props: AddUserFormProps) {
-    const classNames = ['user-form'];
+    const classNames = ['add-user-form'];
 
     const children = {
       button: new CustomButton({

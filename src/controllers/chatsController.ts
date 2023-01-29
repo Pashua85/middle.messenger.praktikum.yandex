@@ -9,36 +9,56 @@ class ChatsController {
     this.api = API;
   }
 
-  public async create(title: string) {
-    await this.api.create(title);
+  public async create(title: string): Promise<number | null> {
+    let chatId = null;
+    try {
+      const newChat = await this.api.create(title);
+      chatId = newChat.id;
+    } catch (e: unknown) {
+      alert(e);
+    }
 
     this.fetchChats();
+
+    return chatId;
   }
 
   public async fetchChats() {
-    const chats = await this.api.read();
+    try {
+      const chats = await this.api.read();
 
-    const chatsWithUsers = await Promise.all(
-      chats.map(async (chat) => {
-        const token = await this.getToken(chat.id);
+      const chatsWithUsers = await Promise.all(
+        chats.map(async (chat) => {
+          const token = await this.getToken(chat.id);
 
-        const users = await this.api.getUsers(chat.id);
+          const users = await this.api.getUsers(chat.id);
 
-        await MessagesController.connect(chat.id, token);
+          await MessagesController.connect(chat.id, token);
 
-        return {
-          ...chat,
-          users,
-        };
-      }),
-    );
+          return {
+            ...chat,
+            users,
+          };
+        }),
+      );
 
-    store.set('chats', chatsWithUsers);
+      store.set('chats', chatsWithUsers);
+    } catch (e: unknown) {
+      alert(e);
+    }
   }
 
-  public async addUserToChat(id: number, userId: number) {
+  public async addUserToChat(chatId: number, userId: number) {
     try {
-      await this.api.addUsers(id, [userId]);
+      await this.api.addUsers(chatId, [userId]);
+    } catch (e: unknown) {
+      alert(e);
+    }
+  }
+
+  public async deleteUserFromChat(chatId: number, userId: number) {
+    try {
+      await this.api.deleteUsers(chatId, [userId]);
     } catch (e: unknown) {
       alert(e);
     }

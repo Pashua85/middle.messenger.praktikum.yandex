@@ -1,0 +1,7 @@
+<select class="delete-user-form__select">
+  <option value=''>Выберите пользователя</option>
+  {{#each users}}
+    <option value={{id}}>{{login}}</option>
+  {{/each}}
+</select>
+{{{button}}}

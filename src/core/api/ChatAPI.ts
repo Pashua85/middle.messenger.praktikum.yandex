@@ -8,7 +8,7 @@ export class ChatsAPI extends BaseAPI {
     super('/chats');
   }
 
-  public create(title: string) {
+  public create(title: string): Promise<{ id: number }> {
     return this.http.post('/', { data: { title } });
   }
 
@@ -24,8 +24,12 @@ export class ChatsAPI extends BaseAPI {
     return this.http.get(`/${id}/users`);
   }
 
-  public addUsers(id: number, users: number[]): Promise<unknown> {
-    return this.http.put('/users', { data: { users, chatId: id } });
+  public addUsers(chatId: number, users: number[]): Promise<unknown> {
+    return this.http.put('/users', { data: { users, chatId } });
+  }
+
+  public deleteUsers(chatId: number, users: number[]): Promise<unknown> {
+    return this.http.delete('/users', { data: { users, chatId } });
   }
 
   public async getToken(id: number): Promise<string> {

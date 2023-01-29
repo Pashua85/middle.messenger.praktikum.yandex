@@ -26,7 +26,10 @@ export class ChatListBase extends Block<ChatListProps, ChatsItem[]> {
 
   protected componentDidUpdate(oldProps: ChatListProps, newProps: ChatListProps): boolean {
     if (oldProps?.chats !== newProps?.chats && newProps.chats?.length) {
-      this.setChildren({ chatListItems: this.createChatListItems(newProps.chats) });
+      this.setChildren({
+        ...this.children,
+        chatListItems: this.createChatListItems(newProps.chats),
+      });
 
       return true;
     }

@@ -14,6 +14,7 @@ import ModalController from '../../controllers/modalController';
 import ChatsController from '../../controllers/chatsController';
 import { FileForm } from '../fileForm';
 import { AddUserForm } from '../addUserForm';
+import { DeleteUserForm } from '../deleteUserForm';
 
 interface ChatProps {
   classNames: string[];
@@ -33,13 +34,13 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
           option1: new MenuOption({
             label: 'Добавить пользователя',
             events: {
-              click: () => this.openAddUserForm(),
+              click: () => this.openUserForm('add'),
             },
           }),
           option2: new MenuOption({
             label: 'Удалить пользователя',
             events: {
-              click: () => console.log('option click!'),
+              click: () => this.openUserForm('delete'),
             },
           }),
         },
@@ -122,8 +123,9 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
     );
   }
 
-  private openAddUserForm() {
-    ModalController.open(new AddUserForm({}), this.handleCloseModal.bind(this));
+  private openUserForm(formType: 'delete' | 'add') {
+    const form = formType === 'add' ? new AddUserForm({}) : new DeleteUserForm({});
+    ModalController.open(form, this.handleCloseModal.bind(this));
   }
 
   private async changeAvatar(data: FormData) {
@@ -134,7 +136,6 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
   }
 
   private handleCloseModal() {
-    console.log('handleClose');
     const { contextMenu } = this.children;
     if (ContextMenu.isContextMenu(contextMenu)) {
       contextMenu.close();

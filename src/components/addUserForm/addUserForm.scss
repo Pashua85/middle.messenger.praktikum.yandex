@@ -1,23 +1,11 @@
- @import '../../variables.scss';
+@import '../../variables.scss';
+@import '../../mixins.scss';
 
-.user-form {
-  width: 340px;
-  padding: 30px;
-  padding-top: 40px;
-  background-color: $white;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+.add-user-form {
+  @include user-form;
 
   &__errorMessage {
-    color: $red;
-    position: absolute;
-    top: 15px;
-    left: 30px;
-    width: 280px;
-    text-align: center;
-    font-size: 12px;
+    @include user-form-message;
   }
 }
 
