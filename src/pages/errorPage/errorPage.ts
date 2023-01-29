@@ -11,8 +11,6 @@ interface ErrorPageProps {
 
 export class ErrorPage extends Block<ErrorPageProps, TextLink> {
   constructor(props: ErrorPageProps) {
-    console.log({ errorProps: props });
-
     const children = {
       backLink: new TextLink({
         text: 'Назад к чатам',

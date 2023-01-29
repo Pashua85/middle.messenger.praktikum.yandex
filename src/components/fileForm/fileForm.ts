@@ -54,13 +54,6 @@ export class FileForm extends Block<FileFormProps, CustomButton | Input> {
 
     if (!form || this.props.errorMessage) return;
 
-    // const fileName = (form[0] as HTMLInputElement).files?.[0].name;
-
-    // if (fileName?.includes(' ')) {
-    //   this.setProps({ errorMessage: 'Название файла не может содержать пробелы' });
-    //   return;
-    // }
-
     const formData = new FormData(form);
 
     this.props.onSubmit(formData);

@@ -129,7 +129,6 @@ export class ChatBase extends Block<ChatProps, ContextMenu | typeof MessageForm 
   }
 
   private async changeAvatar(data: FormData) {
-    console.log({ data });
     if (this.props.selectedChat) {
       ChatsController.changeAvatar(this.props.selectedChat, data);
     }

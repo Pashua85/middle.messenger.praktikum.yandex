@@ -25,7 +25,6 @@ export class ProfilePageBase extends Block<
   typeof ProfileForm | PasswordForm | CustomButton | Avatar
 > {
   constructor(props: ProfilePageProps) {
-    console.log({ profileProps: props });
     const children = {
       profileForm: new ProfileForm({
         isInViewMode: props.isInViewMode,

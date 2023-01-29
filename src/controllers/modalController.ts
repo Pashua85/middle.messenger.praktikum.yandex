@@ -16,7 +16,6 @@ export class ModalController {
 
   public open(component: Block, onClose?: () => void) {
     this.close();
-    console.log({ onClose, component });
     this.onClose = onClose;
 
     this.modal = new Modal({});

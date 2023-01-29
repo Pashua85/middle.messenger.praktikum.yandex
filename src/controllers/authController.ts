@@ -18,7 +18,6 @@ export class AuthController {
 
       navigate(ERoute.Chats);
     } catch (e: unknown) {
-      console.error(e);
       alert(e);
     }
   }
