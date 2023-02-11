@@ -9,10 +9,10 @@
   {{#if isInViewMode}}
     <div class="profile__name">{{name}}</div>
   {{/if}}
-  {{#if_eq viewMode 'profile' }}
+  {{#if isInProfileMode }}
     {{{profileForm}}}
-  {{/if_eq}}
-  {{#if_eq viewMode 'password' }}
+  {{/if }}
+  {{#unless isInProfileMode }}
     {{{passwordForm}}}
-  {{/if_eq}}
+  {{/unless}}
 </main>
