@@ -1,10 +1,9 @@
 /* eslint-disable indent */
 import './styles';
 
-import './helpers.js';
 import { Block } from './core';
 import Router from './core/router/router';
-import { EProfilePageViewMode, ERoute } from './enums';
+import { ERoute } from './enums';
 import { SignInPage } from './pages/signInPage';
 import { SignUpPage } from './pages/signUpPage/signUpPage';
 import { ChatsPage } from './pages/chatsPage';
@@ -17,7 +16,7 @@ window.addEventListener('DOMContentLoaded', async () => {
   Router.use(ERoute.Index, SignInPage as unknown as typeof Block)
     .use(ERoute.Register, SignUpPage as unknown as typeof Block)
     .use(ERoute.Profile, ProfilePage as unknown as typeof Block, {
-      viewMode: EProfilePageViewMode.PROFILE,
+      isInProfileMode: true,
       isInViewMode: true,
     })
     .use(ERoute.Error, ErrorPage as unknown as typeof Block, { errorNumber: 505, errorMessage: 'Что-то пошло не так' })

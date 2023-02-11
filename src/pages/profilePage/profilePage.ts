@@ -15,7 +15,7 @@ import { FileForm } from '../../components/fileForm';
 
 interface ProfilePageProps {
   classNames: string[];
-  viewMode: EProfilePageViewMode;
+  isInProfileMode: boolean;
   isInViewMode: boolean;
   avatar?: string;
 }
@@ -66,7 +66,7 @@ export class ProfilePageBase extends Block<
   }
 
   private changeViewMode(payload: EProfilePageViewMode): void {
-    this.setProps({ viewMode: payload });
+    this.setProps({ isInProfileMode: payload === EProfilePageViewMode.PROFILE });
   }
 
   private openAvatarModal(): void {
@@ -87,7 +87,7 @@ export class ProfilePageBase extends Block<
 const mapStateToProps = (state: IState) => ({
   name: state.user?.first_name,
   avatar: state.user?.avatar ? `${RESOURCES}/${state.user?.avatar}` : undefined,
-  avatarText: state.user?.avatar ? 'Поменять аватар' : 'Pfvtyb',
+  avatarText: state.user?.avatar ? 'Поменять аватар' : undefined,
 });
 
 export const ProfilePage = withStore(mapStateToProps)(ProfilePageBase);
