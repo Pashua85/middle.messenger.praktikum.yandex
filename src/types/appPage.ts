@@ -4,4 +4,4 @@ import { SignUpPage } from '../pages/signUpPage';
 import { ProfilePage } from '../pages/profilePage';
 import { ErrorPage } from '../pages/errorPage';
 
-export type AppPage = SignInPage | SignUpPage | ChatsPage | ProfilePage | ErrorPage;
+export type AppPage = SignInPage | SignUpPage | typeof ChatsPage | typeof ProfilePage | ErrorPage;

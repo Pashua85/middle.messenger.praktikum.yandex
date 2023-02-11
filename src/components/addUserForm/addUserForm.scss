@@ -1,0 +1,11 @@
+@import '../../variables.scss';
+@import '../../mixins.scss';
+
+.add-user-form {
+  @include user-form;
+
+  &__errorMessage {
+    @include user-form-message;
+  }
+}
+

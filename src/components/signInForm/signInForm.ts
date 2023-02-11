@@ -1,15 +1,16 @@
 import { LOGIN_RULES, PASSWORD_RULES } from '../../constants';
-import { EInputType, EPage } from '../../enums';
+import { EInputType, ERoute } from '../../enums';
+import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
 import { TextLink } from '../textLink';
 import template from './signInForm.hbs';
+import AuthController from '../../controllers/authController';
 import './signInForm.scss';
 
 interface SignInFormProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
 }
 
 export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -36,9 +37,7 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
       passwordInput,
       button: new CustomButton({
         label: 'Авторизоваться',
-        events: {
-          click: () => console.log('Авторизоваться!'),
-        },
+        events: {},
         type: 'submit',
       }),
       link: new TextLink({
@@ -59,13 +58,14 @@ export class SingInForm extends Form<SignInFormProps, FormInput | CustomButton |
     return this.compile(template, {});
   }
 
-  protected handleSubmit(formValues: Record<string, string | number>): void {
-    console.log({ formValues });
-    this.props.navigate(EPage.CHATS);
+  protected handleSubmit(formValues: Record<string, string>): void {
+    if (formValues.login && formValues.password) {
+      AuthController.signin({ login: formValues.login, password: formValues.password });
+    }
   }
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    this.props.navigate(EPage.SIGN_UP);
+    navigate(ERoute.Register);
   }
 }

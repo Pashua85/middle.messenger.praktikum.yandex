@@ -1,0 +1,7 @@
+{{#if isLoaded}}
+<div>{{{chatListItems}}}</div>
+{{/if}}
+{{#unless isLoaded}}
+<div class="chat-list__loader">Loading...</div>
+{{/unless}}
+

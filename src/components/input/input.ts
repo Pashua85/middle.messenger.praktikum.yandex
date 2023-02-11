@@ -3,11 +3,12 @@ import template from './input.hbs';
 
 interface InputProps {
   classNames?: string[];
-  events?: Record<string, (event: Event | FocusEvent) => void>;
+  events?: Record<string, (event: InputEvent) => void>;
   type: string;
   name: string;
   placeholder?: string;
   disabled?: boolean;
+  value?: string;
 }
 
 export class Input extends Block<InputProps, never> {
@@ -15,6 +16,10 @@ export class Input extends Block<InputProps, never> {
     super('input', {
       ...props,
     });
+  }
+
+  public static isInput(block: unknown): block is Input {
+    return block instanceof Input;
   }
 
   public render() {
@@ -29,6 +34,10 @@ export class Input extends Block<InputProps, never> {
         this.element.removeAttribute('disabled');
       }
     }
+
+    if (oldProps.value !== newProps.value) {
+      (this.element as HTMLInputElement).value = newProps.value || '';
+    }
     return true;
   }
 
@@ -36,6 +45,7 @@ export class Input extends Block<InputProps, never> {
     if (this.element) {
       this.element.setAttribute('type', this.props.type);
       this.element.setAttribute('name', this.props.name);
+      this.element.setAttribute('value', this.props.value || '');
       this.element.setAttribute('placeholder', this.props.placeholder || '');
       if (this.props.disabled) {
         this.element.setAttribute('disabled', 'true');

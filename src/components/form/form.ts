@@ -27,14 +27,14 @@ export abstract class Form<
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
-  protected handleSubmit(_formValues: Record<string, string | number>): void {}
+  protected handleSubmit(_formValues: Record<string, string>): void {}
 
   protected enableForm(): void {
-    this.fields.forEach((item) => item.setProps({ disabled: false }));
+    this.fields.forEach((item) => (item as Block).setProps({ disabled: false }));
   }
 
   protected disableForm(): void {
-    this.fields.forEach((item) => item.setProps({ disabled: true }));
+    this.fields.forEach((item) => (item as Block).setProps({ disabled: true }));
   }
 
   private _handleSubmit(): void {
@@ -53,11 +53,11 @@ export abstract class Form<
     return isValid;
   }
 
-  private getFormValues(): Record<string, string | number> {
-    const result: Record<string, string | number> = {};
+  private getFormValues(): Record<string, string> {
+    const result: Record<string, string> = {};
 
     this.fields.forEach((item) => {
-      result[item.props.name] = item.value;
+      result[(item as Block).props.name] = String(item.value);
     });
 
     return result;

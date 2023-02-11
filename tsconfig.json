@@ -8,10 +8,10 @@
     "noImplicitAny": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
     "strictNullChecks": true,
     "noUnusedLocals": true,
     "skipLibCheck": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
   }
 }

@@ -27,7 +27,7 @@ export abstract class Block<
 
   private _element: HTMLElement | null = null;
 
-  constructor(tagName = 'div', props: TProps, children: BlockChildren<TChildren> = {}) {
+  constructor(tagName: string, props: TProps, children: BlockChildren<TChildren> = {}) {
     const eventBus = new EventBus();
 
     this._meta = {
@@ -65,7 +65,11 @@ export abstract class Block<
     const contextAndStubs = { ...context };
 
     Object.entries(this.children).forEach(([key, component]) => {
-      contextAndStubs[key] = `<div data-id="${component.id}"></div>`;
+      if (!Array.isArray(component)) {
+        contextAndStubs[key] = `<div data-id='${component.id}'></div>`;
+      } else {
+        contextAndStubs[key] = `<div data-id='${component[0]?.id}'></div>`;
+      }
     });
 
     const html = template(contextAndStubs);
@@ -75,13 +79,25 @@ export abstract class Block<
     temp.innerHTML = html;
 
     Object.values(this.children).forEach((component) => {
-      const stub = temp.content.querySelector(`[data-id='${component.id}']`);
+      const stub = Array.isArray(component)
+        ? temp.content.querySelector(`[data-id='${component[0]?.id}']`)
+        : temp.content.querySelector(`[data-id='${component.id}']`);
 
       if (!stub) {
         return;
       }
 
-      const content = component.getContent();
+      let content: HTMLElement | DocumentFragment | null = null;
+
+      if (!Array.isArray(component)) {
+        content = component.getContent();
+      } else {
+        content = new DocumentFragment();
+
+        for (const item of component) {
+          content.append(item.getContent());
+        }
+      }
 
       if (content) {
         stub.replaceWith(content);
@@ -99,12 +115,9 @@ export abstract class Block<
     return new DocumentFragment();
   }
 
-  protected addChildren(children: BlockChildren<TChildren>) {
-    Object.entries(children).forEach(([key, value]) => {
-      if (value instanceof Block) {
-        children[key] = value;
-      }
-    });
+  protected setChildren(children: BlockChildren<TChildren>) {
+    this.children = children;
+
     this.eventBus().emit(Block.EVENTS.FLOW_CDU);
   }
 
@@ -168,7 +181,13 @@ export abstract class Block<
     this.componentDidMount();
 
     Object.values(this.children).forEach((child) => {
-      child.dispatchComponentDidMount();
+      if (!Array.isArray(child)) {
+        child.dispatchComponentDidMount();
+      } else {
+        child.forEach((item) => {
+          item.dispatchComponentDidMount();
+        });
+      }
     });
   }
 
@@ -177,8 +196,8 @@ export abstract class Block<
   }
 
   private _componentDidUpdate(oldProps: unknown, newProps: unknown) {
-    const newClassNames = (newProps as TProps).classNames;
-    const oldClassNames = (oldProps as TProps).classNames;
+    const newClassNames = (newProps as TProps)?.classNames;
+    const oldClassNames = (oldProps as TProps)?.classNames;
 
     if (Array.isArray(newClassNames) && newClassNames !== oldClassNames) {
       if (Array.isArray(oldClassNames)) {

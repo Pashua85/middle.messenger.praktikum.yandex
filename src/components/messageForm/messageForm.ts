@@ -1,17 +1,20 @@
 import { EContextMenu } from '../../enums';
+import { IState, withStore } from '../../store/store';
 import { ContextMenu } from '../contextMenu';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { MenuOption } from '../menuOption';
 import { MessageInput } from '../messageInput';
 import template from './messageForm.hbs';
+import MessagesController from '../../controllers/messagesController';
 import './messageForm.scss';
 
 interface MessageFormProps {
   classNames?: string[];
+  selectedChat?: number;
 }
 
-export class MessageForm extends Form<MessageFormProps, MessageInput | ContextMenu | CustomButton, MessageInput> {
+export class MessageFormBase extends Form<MessageFormProps, MessageInput | ContextMenu | CustomButton, MessageInput> {
   private isValid = false;
 
   constructor(props: MessageFormProps) {
@@ -65,8 +68,11 @@ export class MessageForm extends Form<MessageFormProps, MessageInput | ContextMe
     return this.compile(template, { ...this.props });
   }
 
-  protected handleSubmit(formValues: Record<string, string | number>): void {
-    console.log({ formValues });
+  protected handleSubmit(formValues: Record<string, string>): void {
+    if (this.props.selectedChat && formValues.message) {
+      console.log({ formValues, selectedChat: this.props.selectedChat });
+      MessagesController.sendMessage(this.props.selectedChat, formValues.message);
+    }
   }
 
   private handleChange(isValid: boolean) {
@@ -80,3 +86,11 @@ export class MessageForm extends Form<MessageFormProps, MessageInput | ContextMe
     }
   }
 }
+
+const mapStateToProps = (state: IState) => {
+  return {
+    selectedChat: state.selectedChat,
+  };
+};
+
+export const MessageForm = withStore(mapStateToProps)(MessageFormBase);

@@ -1,15 +1,17 @@
 import { EMAIL_RULES, LOGIN_RULES, NAME_RULES, PASSWORD_RULES, PHONES_RULES } from '../../constants';
-import { EInputType, EPage } from '../../enums';
+import { EInputType, ERoute } from '../../enums';
+import { navigate } from '../../utils';
 import { CustomButton } from '../customButton';
 import { Form } from '../form';
 import { FormInput } from '../formInput';
 import { TextLink } from '../textLink';
 import template from './signUpForm.hbs';
 import './signUpForm.scss';
+import AuthController from '../../controllers/authController';
+import { ISignupData } from '../../interfaces';
 
 interface SignUpFormProps {
   classNames: string[];
-  navigate: (page: EPage) => void;
 }
 
 export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton | TextLink, FormInput> {
@@ -84,9 +86,7 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
       phoneInput,
       button: new CustomButton({
         label: 'Зарегистрироваться',
-        events: {
-          click: () => console.log('Зарегистрироваться!'),
-        },
+        events: {},
         type: 'submit',
       }),
       link: new TextLink({
@@ -116,11 +116,11 @@ export class SingUpForm extends Form<SignUpFormProps, FormInput | CustomButton |
   }
 
   protected handleSubmit(formValues: Record<string, string | number>): void {
-    console.log({ formValues });
+    AuthController.signup(formValues as unknown as ISignupData);
   }
 
   private handleLinkClick(e: Event) {
     e.preventDefault();
-    this.props.navigate(EPage.SIGN_IN);
+    navigate(ERoute.Index);
   }
 }

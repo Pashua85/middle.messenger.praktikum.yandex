@@ -15,6 +15,12 @@
     width: 100%;
     align-self: center;
     overflow-y: auto;
+
+    &_empty {
+      justify-content: center;
+      align-items: center;
+      color: $grey;
+    }
   }
 
   &__date {
@@ -22,6 +28,16 @@
     align-self: center;
     padding: 20px;
     color: $grey;
+  }
+
+  &__avatar {
+    height: 80px;
+    width: 80px;
+
+    & .avatar__text {
+      gap: 6px;
+      font-size: 10px;
+    }
   }
 }
 

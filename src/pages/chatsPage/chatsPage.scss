@@ -8,6 +8,8 @@
     border-right: 1px solid $border-color;
     width: 310px;
     padding: 21px 10px 0;
+    display: flex;
+    flex-direction: column;
   }
 
   &__main {
@@ -88,60 +90,21 @@
     border: none;
     outline: none;
   }
-}
 
-.chats-item {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  display: flex;
-  gap: 10px;
-  position: relative;
-  border-top: 1px solid $border-color;
-
-  &__avatar {
-    width: 47px;
-    height: 47px;
-    border-radius: 50%;
-    vertical-align: middle;
-  }
-
-  &__content {
-    flex: 1;
-  }
-
-  &__title {
-    font-weight: 600;
-    margin-bottom: 6px;
-  }
-
-  &__message {
-    color: $grey;
-
-    &_own::before {
-      content: "Вы:";
-      display: inline;
-      color: $base-font-color;
-      margin-right: 10px;
-    }
-  }
-
-  &__time {
-    color: $grey;
-    font-size: 9px;
-  }
-
-  &__unread {
-    position: absolute;
-    bottom: 10px;
-    right: 0;
-    display: block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: $base-color;
-    line-height: 20px;
-    color: $white;
-    text-align: center;
-    font-size: 9px;
+  &__footer {
+    border-top: 1px solid $border-color;
+    height: 75px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 }
+
+.addChatButton {
+  background-color: transparent;
+  color: $grey;
+  border: 1px solid $border-color;
+}
+
+

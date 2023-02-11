@@ -42,14 +42,9 @@
     }
   }
 
-  &__photo-placeholder {
+  &__avatar {
     height: 130px;
     width: 130px;
-    border-radius: 50%;
-    background-image: url("../../assets/no-image.svg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-color: $grey-3;
   }
 
   &__name {
